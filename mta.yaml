@@ -16,9 +16,23 @@ modules:
       - comknpltsstssportal.zip
       name: comknpltsstssportal
       target-path: resources/
+    - artifacts:
+      - comknpltssuseraccessmgmt.zip
+      name: comknpltssuseraccessmgmt
+      target-path: resources/
 - name: comknpltsstssportal
   type: html5
   path: tss-portal
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpltssuseraccessmgmt
+  type: html5
+  path: user-access-mgmt
   build-parameters:
     build-result: dist
     builder: custom

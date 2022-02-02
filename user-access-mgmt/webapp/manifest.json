@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.knpl.tss.tssportal",
+        "id": "com.knpl.tss.useraccessmgmt",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -37,13 +37,13 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "com-knpl-tss-tssportal-inbound": {
+                "com-knpl-tss-useraccessmgmt-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "TSSPortal",
-                    "action": "Manage",
+                    "semanticObject": "UAM",
+                    "action": "Display",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
                     "icon": ""
@@ -76,8 +76,7 @@
             "minUI5Version": "1.97.2",
             "libs": {
                 "sap.ui.core": {},
-                "sap.fe.templates": {},
-                "sap.f": {}
+                "sap.fe.templates": {}
             }
         },
         "models": {
@@ -104,103 +103,51 @@
             "routes": [
                 {
                     "pattern": ":?query:",
-                    "name": "ProductsList",
-                    "target": [
-                        "ProductsList"
-                    ]
+                    "name": "UsersList",
+                    "target": "UsersList"
                 },
                 {
-                    "pattern": "Products({key}):?query:",
-                    "name": "ProductsObjectPage",
-                    "target": [
-                        "ProductsList",
-                        "ProductsObjectPage"
-                    ]
-                },
-                {
-                    "pattern": "Products({key})/defectDetails({key2}):?query:",
-                    "name": "DefectDetailsObjectPage_defectDetails",
-                    "target": [
-                        "ProductsList",
-                        "ProductsObjectPage",
-                        "DefectDetailsObjectPage_defectDetails"
-                    ]
+                    "pattern": "Users({key}):?query:",
+                    "name": "UsersObjectPage",
+                    "target": "UsersObjectPage"
                 }
             ],
             "targets": {
-                "ProductsList": {
+                "UsersList": {
                     "type": "Component",
-                    "id": "ProductsList",
+                    "id": "UsersList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
-                            "entitySet": "Products",
+                            "entitySet": "Users",
                             "variantManagement": "Page",
                             "navigation": {
-                                "Products": {
+                                "Users": {
                                     "detail": {
-                                        "route": "ProductsObjectPage"
+                                        "route": "UsersObjectPage"
                                     }
                                 }
                             },
                             "initialLoad": "Enabled"
                         }
-                    },
-                    "controlAggregation": "beginColumnPages",
-                    "contextPattern": ""
+                    }
                 },
-                "ProductsObjectPage": {
+                "UsersObjectPage": {
                     "type": "Component",
-                    "id": "ProductsObjectPage",
+                    "id": "UsersObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
-                            "entitySet": "Products",
-                            "sectionLayout": "Page",
-                            "navigation": {
-                                "defectDetails": {
-                                    "detail": {
-                                        "route": "DefectDetailsObjectPage_defectDetails"
-                                    }
-                                }
-                            }
+                            "entitySet": "Users"
                         }
-                    },
-                    "controlAggregation": "midColumnPages",
-                    "contextPattern": "/Products({key})"
-                },
-                "DefectDetailsObjectPage_defectDetails": {
-                    "type": "Component",
-                    "id": "DefectDetailsObjectPage_defectDetails",
-                    "name": "sap.fe.templates.ObjectPage",
-                    "options": {
-                        "settings": {
-                            "entitySet": "DefectDetails",
-                            "navigation": {}
-                        }
-                    },
-                    "controlAggregation": "endColumnPages",
-                    "contextPattern": "/Products({key})/defectDetails({key2})"
+                    }
                 }
-            },
-            "config": {
-                "flexibleColumnLayout": {
-                    "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
-                    "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
-                },
-                "routerClass": "sap.f.routing.Router"
             }
         },
         "contentDensities": {
             "compact": true,
             "cozy": true
-        },
-        "rootView": {
-            "viewName": "sap.fe.templates.RootContainer.view.Fcl",
-            "type": "XML",
-            "async": true,
-            "id": "appRootView"
         }
     },
     "sap.platform.abap": {
