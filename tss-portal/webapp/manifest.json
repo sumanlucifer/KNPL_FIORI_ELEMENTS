@@ -116,6 +116,15 @@
                         "ProductsList",
                         "ProductsObjectPage"
                     ]
+                },
+                {
+                    "pattern": "Products({key})/defectDetails({key2}):?query:",
+                    "name": "DefectDetailsObjectPage_defectDetails",
+                    "target": [
+                        "ProductsList",
+                        "ProductsObjectPage",
+                        "DefectDetailsObjectPage_defectDetails"
+                    ]
                 }
             ],
             "targets": {
@@ -146,11 +155,39 @@
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
-                            "entitySet": "Products"
+                            "entitySet": "Products",
+                            "sectionLayout": "Page",
+                            "navigation": {
+                                "defectDetails": {
+                                    "detail": {
+                                        "route": "DefectDetailsObjectPage_defectDetails"
+                                    }
+                                }
+                            },
+                            "controlConfiguration": {
+                                "defectDetails/@com.sap.vocabularies.UI.v1.LineItem#Defects": {
+                                    "tableSettings": {
+                                        "selectionMode": "Single"
+                                    }
+                                }
+                            }
                         }
                     },
                     "controlAggregation": "midColumnPages",
                     "contextPattern": "/Products({key})"
+                },
+                "DefectDetailsObjectPage_defectDetails": {
+                    "type": "Component",
+                    "id": "DefectDetailsObjectPage_defectDetails",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "entitySet": "DefectDetails",
+                            "navigation": {}
+                        }
+                    },
+                    "controlAggregation": "endColumnPages",
+                    "contextPattern": "/Products({key})/defectDetails({key2})"
                 }
             },
             "config": {
