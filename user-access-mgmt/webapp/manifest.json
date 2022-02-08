@@ -105,11 +105,6 @@
                     "pattern": ":?query:",
                     "name": "UsersList",
                     "target": "UsersList"
-                },
-                {
-                    "pattern": "Users({key}):?query:",
-                    "name": "UsersObjectPage",
-                    "target": "UsersObjectPage"
                 }
             ],
             "targets": {
@@ -121,25 +116,23 @@
                         "settings": {
                             "entitySet": "Users",
                             "variantManagement": "Page",
-                            "navigation": {
-                                "Users": {
-                                    "detail": {
-                                        "route": "UsersObjectPage"
+                            "navigation": {},
+                            "initialLoad": "Enabled",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "columns": {
+                                        "DataField::userType::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::email": {
+                                            "width": "100%"
+                                        }
                                     }
                                 }
-                            },
-                            "initialLoad": "Enabled"
-                        }
-                    }
-                },
-                "UsersObjectPage": {
-                    "type": "Component",
-                    "id": "UsersObjectPage",
-                    "name": "sap.fe.templates.ObjectPage",
-                    "options": {
-                        "settings": {
-                            "editableHeaderContent": false,
-                            "entitySet": "Users"
+                            }
                         }
                     }
                 }

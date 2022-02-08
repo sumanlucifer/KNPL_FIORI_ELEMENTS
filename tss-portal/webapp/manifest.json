@@ -143,7 +143,31 @@
                                     }
                                 }
                             },
-                            "initialLoad": "Enabled"
+                            "initialLoad": "Enabled",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "columns": {
+                                        "DataField::ID": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::code": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::vehicleType::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::mainCustomer::name": {
+                                            "width": "100%"
+                                        }
+                                    },
+                                    "tableSettings": {
+                                        "enableExport": false
+                                    }
+                                }
+                            }
                         }
                     },
                     "controlAggregation": "beginColumnPages",
@@ -164,6 +188,27 @@
                                         "route": "DefectDetailsObjectPage_defectDetails"
                                     }
                                 }
+                            },
+                            "controlConfiguration": {
+                                "defectDetails/@com.sap.vocabularies.UI.v1.LineItem#Defects": {
+                                    "columns": {
+                                        "DataField::defectType::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::defectClassification::category::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::defectClassification::subCategory::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::defectClassification::JV::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::countermeasureTaken": {
+                                            "width": "100%"
+                                        }
+                                    }
+                                }
                             }
                         }
                     },
@@ -177,7 +222,8 @@
                     "options": {
                         "settings": {
                             "entitySet": "DefectDetails",
-                            "navigation": {}
+                            "navigation": {},
+                            "sectionLayout": "Page"
                         }
                     },
                     "controlAggregation": "endColumnPages",
@@ -186,7 +232,7 @@
             },
             "config": {
                 "flexibleColumnLayout": {
-                    "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+                    "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
                     "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
                 },
                 "routerClass": "sap.f.routing.Router"
