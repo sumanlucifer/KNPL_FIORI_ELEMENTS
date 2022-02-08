@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.knpl.tss.tssportal",
+        "id": "com.knpl.tssportal",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -37,7 +37,7 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "com-knpl-tss-tssportal-inbound": {
+                "com-knpl-tssportal-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
@@ -119,11 +119,11 @@
                 },
                 {
                     "pattern": "Products({key})/defectDetails({key2}):?query:",
-                    "name": "DefectDetailsObjectPage_defectDetails",
+                    "name": "DefectDetailsObjectPage",
                     "target": [
                         "ProductsList",
                         "ProductsObjectPage",
-                        "DefectDetailsObjectPage_defectDetails"
+                        "DefectDetailsObjectPage"
                     ]
                 }
             ],
@@ -143,31 +143,7 @@
                                     }
                                 }
                             },
-                            "initialLoad": "Enabled",
-                            "controlConfiguration": {
-                                "@com.sap.vocabularies.UI.v1.LineItem": {
-                                    "columns": {
-                                        "DataField::ID": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::code": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::vehicleType::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::mainCustomer::name": {
-                                            "width": "100%"
-                                        }
-                                    },
-                                    "tableSettings": {
-                                        "enableExport": false
-                                    }
-                                }
-                            }
+                            "initialLoad": "Enabled"
                         }
                     },
                     "controlAggregation": "beginColumnPages",
@@ -181,32 +157,10 @@
                         "settings": {
                             "editableHeaderContent": false,
                             "entitySet": "Products",
-                            "sectionLayout": "Page",
                             "navigation": {
                                 "defectDetails": {
                                     "detail": {
-                                        "route": "DefectDetailsObjectPage_defectDetails"
-                                    }
-                                }
-                            },
-                            "controlConfiguration": {
-                                "defectDetails/@com.sap.vocabularies.UI.v1.LineItem#Defects": {
-                                    "columns": {
-                                        "DataField::defectType::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::defectClassification::category::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::defectClassification::subCategory::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::defectClassification::JV::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::countermeasureTaken": {
-                                            "width": "100%"
-                                        }
+                                        "route": "DefectDetailsObjectPage"
                                     }
                                 }
                             }
@@ -215,15 +169,13 @@
                     "controlAggregation": "midColumnPages",
                     "contextPattern": "/Products({key})"
                 },
-                "DefectDetailsObjectPage_defectDetails": {
+                "DefectDetailsObjectPage": {
                     "type": "Component",
-                    "id": "DefectDetailsObjectPage_defectDetails",
+                    "id": "DefectDetailsObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
-                            "entitySet": "DefectDetails",
-                            "navigation": {},
-                            "sectionLayout": "Page"
+                            "entitySet": "DefectDetails"
                         }
                     },
                     "controlAggregation": "endColumnPages",
@@ -261,5 +213,9 @@
         "_version": "1.1.0",
         "registrationIds": [],
         "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "knpl.tss"
     }
 }

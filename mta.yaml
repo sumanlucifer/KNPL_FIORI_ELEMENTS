@@ -1,26 +1,56 @@
 _schema-version: "3.2"
-ID: knpl-tss-ui
+ID: knpl-tss-web
 version: 0.0.1
 modules:
-- name: knpl-tss-ui-app-content
+- name: knpl-tss-web-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: knpl-tss-destination-service
+    parameters:
+      content-target: true
+  - name: knpl-tss-web_html_repo_host
+    parameters:
+      service-key:
+        name: knpl-tss-web_html_repo_host-key
+  - name: uaa_knpl-tss-web
+    parameters:
+      service-key:
+        name: uaa_knpl-tss-web-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: knpl_tss_knpl_tss_web_html_repo_host
+          ServiceInstanceName: knpl-tss-web-html5-app-host-service
+          ServiceKeyName: knpl-tss-web_html_repo_host-key
+          sap.cloud.service: knpl.tss
+        - Authentication: OAuth2UserTokenExchange
+          Name: knpl_tss_uaa_knpl_tss_web
+          ServiceInstanceName: knpl-tss-xsuaa-service
+          ServiceKeyName: uaa_knpl-tss-web-key
+          sap.cloud.service: knpl.tss
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: knpl-tss-web-app-content
   type: com.sap.application.content
   path: .
   requires:
-  - name: knpl-tss-ui-repo-host
+  - name: knpl-tss-web_html_repo_host
     parameters:
       content-target: true
   build-parameters:
     build-result: resources
     requires:
     - artifacts:
-      - comknpltsstssportal.zip
-      name: comknpltsstssportal
+      - comknpltssportal.zip
+      name: comknpltssportal
       target-path: resources/
     - artifacts:
-      - comknpltssuseraccessmgmt.zip
-      name: comknpltssuseraccessmgmt
+      - comknpluseraccessmgmt.zip
+      name: comknpluseraccessmgmt
       target-path: resources/
-- name: comknpltsstssportal
+- name: comknpltssportal
   type: html5
   path: tss-portal
   build-parameters:
@@ -30,7 +60,7 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: comknpltssuseraccessmgmt
+- name: comknpluseraccessmgmt
   type: html5
   path: user-access-mgmt
   build-parameters:
@@ -41,17 +71,11 @@ modules:
     - npm run build:cf
     supported-platforms: []
 resources:
-- name: knpl-tss-ui-repo-host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-name: knpl-tss-ui-html5-srv
-    service-plan: app-host
-- name: knpl-tss-ui-dest-srv
+- name: knpl-tss-destination-service
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
+      HTML5Runtime_enabled: true
       init_data:
         instance:
           destinations:
@@ -63,7 +87,20 @@ resources:
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
-    service-name: knpl-tss-ui-dest-srv
+    service-name: knpl-tss-destination-service
     service-plan: lite
+- name: knpl-tss-web_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: knpl-tss-web-html5-app-host-service
+    service-plan: app-host
+- name: uaa_knpl-tss-web
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: knpl-tss-xsuaa-service
+    service-plan: application
 parameters:
   deploy_mode: html5-repo

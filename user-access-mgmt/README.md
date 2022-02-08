@@ -1,16 +1,16 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Wed Feb 02 2022 12:07:05 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Tue Feb 08 2022 11:15:35 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori|
-|**App Generator Version**<br>1.4.6|
+|**App Generator Version**<br>1.4.7|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>List Report Object Page V4|
-|**Service Type**<br>OData Url|
+|**Service Type**<br>SAP System (ABAP On Premise)|
 |**Service URL**<br>https://kansai-nerolac-paints-ltd-knpl-painter-dev-dev-knpl-tss-app-srv.cfapps.ap10.hana.ondemand.com/odata/v4/CatalogService/
 |**Module Name**<br>user-access-mgmt|
 |**Application Title**<br>User Access Management|
-|**Namespace**<br>com.knpl.tss|
+|**Namespace**<br>com.knpl|
 |**UI5 Theme**<br>sap_fiori_3|
 |**UI5 Version**<br>Latest|
 |**Enable Code Assist Libraries**<br>False|

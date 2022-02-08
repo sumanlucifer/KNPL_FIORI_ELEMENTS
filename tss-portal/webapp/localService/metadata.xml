@@ -1,555 +1,556 @@
-<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+<?xml version='1.0' encoding='UTF-8'?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
     <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
-        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities" />
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
     </edmx:Reference>
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
-        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
     </edmx:Reference>
     <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
-        <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core" />
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core"/>
     </edmx:Reference>
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
-        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
     </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CatalogService">
             <EntityType Name="Products">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="code" Type="Edm.String" MaxLength="10" />
-                <Property Name="name" Type="Edm.String" MaxLength="50" />
-                <Property Name="mainCustomer_ID" Type="Edm.Guid" />
-                <Property Name="vehicleType_ID" Type="Edm.Guid" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="code" Type="Edm.String" MaxLength="10"/>
+                <Property Name="name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="mainCustomer_ID" Type="Edm.Guid"/>
+                <Property Name="vehicleType_ID" Type="Edm.Guid"/>
                 <NavigationProperty Name="mainCustomer" Type="CatalogService.MainCustomers">
-                    <ReferentialConstraint Property="mainCustomer_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="mainCustomer_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="vehicleType" Type="CatalogService.MstrVehicleTypes">
-                    <ReferentialConstraint Property="vehicleType_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="vehicleType_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
-                <NavigationProperty Name="defectDetails" Type="Collection(CatalogService.DefectDetails)" Partner="product" />
+                <NavigationProperty Name="defectDetails" Type="Collection(CatalogService.DefectDetails)" Partner="product"/>
             </EntityType>
             <EntityType Name="Books">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Int32" Nullable="false" />
-                <Property Name="title" Type="Edm.String" />
-                <Property Name="stock" Type="Edm.Int32" />
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="stock" Type="Edm.Int32"/>
             </EntityType>
             <EntityType Name="Users">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="userType_ID" Type="Edm.Guid" />
-                <Property Name="name" Type="Edm.String" MaxLength="30" />
-                <Property Name="email" Type="Edm.String" MaxLength="30" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="userType_ID" Type="Edm.Guid"/>
+                <Property Name="name" Type="Edm.String" MaxLength="30"/>
+                <Property Name="email" Type="Edm.String" MaxLength="30"/>
                 <NavigationProperty Name="userType" Type="CatalogService.MstrUserTypes">
-                    <ReferentialConstraint Property="userType_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="userType_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
             </EntityType>
             <EntityType Name="DefectDetails">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="product_ID" Type="Edm.Guid" />
-                <Property Name="defectType_ID" Type="Edm.Guid" />
-                <Property Name="title" Type="Edm.String" MaxLength="120" />
-                <Property Name="outline" Type="Edm.String" MaxLength="500" />
-                <Property Name="causeOfTrouble" Type="Edm.String" MaxLength="500" />
-                <Property Name="countermeasureTaken" Type="Edm.String" MaxLength="500" />
-                <Property Name="defectClassification_ID" Type="Edm.Guid" />
-                <Property Name="paintDetail_ID" Type="Edm.Guid" />
-                <Property Name="occurrenceStartDate" Type="Edm.Date" />
-                <Property Name="occurrenceEndDate" Type="Edm.Date" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="product_ID" Type="Edm.Guid"/>
+                <Property Name="defectType_ID" Type="Edm.Guid"/>
+                <Property Name="title" Type="Edm.String" MaxLength="120"/>
+                <Property Name="outline" Type="Edm.String" MaxLength="500"/>
+                <Property Name="causeOfTrouble" Type="Edm.String" MaxLength="500"/>
+                <Property Name="countermeasureTaken" Type="Edm.String" MaxLength="500"/>
+                <Property Name="defectClassification_ID" Type="Edm.Guid"/>
+                <Property Name="paintDetail_ID" Type="Edm.Guid"/>
+                <Property Name="occurrenceStartDate" Type="Edm.Date"/>
+                <Property Name="occurrenceEndDate" Type="Edm.Date"/>
                 <NavigationProperty Name="product" Type="CatalogService.Products" Partner="defectDetails">
-                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="defectType" Type="CatalogService.MstrDefectTypes">
-                    <ReferentialConstraint Property="defectType_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="defectType_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="defectClassification" Type="CatalogService.DefectClassifications">
-                    <ReferentialConstraint Property="defectClassification_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="defectClassification_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="paintDetail" Type="CatalogService.PaintDetails">
-                    <ReferentialConstraint Property="paintDetail_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="paintDetail_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
             </EntityType>
             <EntityType Name="DefectClassifications">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="category_ID" Type="Edm.Guid" />
-                <Property Name="subCategory_ID" Type="Edm.Guid" />
-                <Property Name="JV_ID" Type="Edm.Guid" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="category_ID" Type="Edm.Guid"/>
+                <Property Name="subCategory_ID" Type="Edm.Guid"/>
+                <Property Name="JV_ID" Type="Edm.Guid"/>
                 <NavigationProperty Name="category" Type="CatalogService.MstrCategories">
-                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="subCategory" Type="CatalogService.MstrSubCategories">
-                    <ReferentialConstraint Property="subCategory_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="subCategory_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="JV" Type="CatalogService.MstrJVs">
-                    <ReferentialConstraint Property="JV_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="JV_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
             </EntityType>
             <EntityType Name="PaintDetails">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="layer_ID" Type="Edm.Guid" />
-                <Property Name="targetSubstrate_ID" Type="Edm.Guid" />
-                <Property Name="substrateMaterial_ID" Type="Edm.Guid" />
-                <Property Name="paintType_ID" Type="Edm.Guid" />
-                <Property Name="crossLinkType_ID" Type="Edm.Guid" />
-                <Property Name="exteriorInterior_ID" Type="Edm.Guid" />
-                <Property Name="atomization_ID" Type="Edm.Guid" />
-                <Property Name="electrostatic_ID" Type="Edm.Guid" />
-                <Property Name="composition_ID" Type="Edm.Guid" />
-                <Property Name="dryingCondition_ID" Type="Edm.Guid" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="layer_ID" Type="Edm.Guid"/>
+                <Property Name="targetSubstrate_ID" Type="Edm.Guid"/>
+                <Property Name="substrateMaterial_ID" Type="Edm.Guid"/>
+                <Property Name="paintType_ID" Type="Edm.Guid"/>
+                <Property Name="crossLinkType_ID" Type="Edm.Guid"/>
+                <Property Name="exteriorInterior_ID" Type="Edm.Guid"/>
+                <Property Name="atomization_ID" Type="Edm.Guid"/>
+                <Property Name="electrostatic_ID" Type="Edm.Guid"/>
+                <Property Name="composition_ID" Type="Edm.Guid"/>
+                <Property Name="dryingCondition_ID" Type="Edm.Guid"/>
                 <NavigationProperty Name="layer" Type="CatalogService.MstrLayers">
-                    <ReferentialConstraint Property="layer_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="layer_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="targetSubstrate" Type="CatalogService.MstrTargetSubstrates">
-                    <ReferentialConstraint Property="targetSubstrate_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="targetSubstrate_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="substrateMaterial" Type="CatalogService.MstrSubstrateMaterials">
-                    <ReferentialConstraint Property="substrateMaterial_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="substrateMaterial_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="paintType" Type="CatalogService.MstrPaintTypes">
-                    <ReferentialConstraint Property="paintType_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="paintType_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="crossLinkType" Type="CatalogService.MstrCrosslinkTypes">
-                    <ReferentialConstraint Property="crossLinkType_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="crossLinkType_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="exteriorInterior" Type="CatalogService.MstrExteriorInteriors">
-                    <ReferentialConstraint Property="exteriorInterior_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="exteriorInterior_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="atomization" Type="CatalogService.MstrAtomizations">
-                    <ReferentialConstraint Property="atomization_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="atomization_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="electrostatic" Type="CatalogService.MstrElectrostatics">
-                    <ReferentialConstraint Property="electrostatic_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="electrostatic_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="composition" Type="CatalogService.MstrCompositions">
-                    <ReferentialConstraint Property="composition_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="composition_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="dryingCondition" Type="CatalogService.MstrDryingConditions">
-                    <ReferentialConstraint Property="dryingCondition_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="dryingCondition_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
             </EntityType>
             <EntityType Name="DefectDetailHistories">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="product_ID" Type="Edm.Guid" />
-                <Property Name="defectType_ID" Type="Edm.Guid" />
-                <Property Name="title" Type="Edm.String" MaxLength="120" />
-                <Property Name="outline" Type="Edm.String" MaxLength="500" />
-                <Property Name="causeOfTrouble" Type="Edm.String" MaxLength="500" />
-                <Property Name="countermeasureTaken" Type="Edm.String" MaxLength="500" />
-                <Property Name="defectClassificationHistory_ID" Type="Edm.Guid" />
-                <Property Name="paintDetailHistory_ID" Type="Edm.Guid" />
-                <Property Name="occurrenceStartDate" Type="Edm.Date" />
-                <Property Name="occurrenceEndDate" Type="Edm.Date" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="product_ID" Type="Edm.Guid"/>
+                <Property Name="defectType_ID" Type="Edm.Guid"/>
+                <Property Name="title" Type="Edm.String" MaxLength="120"/>
+                <Property Name="outline" Type="Edm.String" MaxLength="500"/>
+                <Property Name="causeOfTrouble" Type="Edm.String" MaxLength="500"/>
+                <Property Name="countermeasureTaken" Type="Edm.String" MaxLength="500"/>
+                <Property Name="defectClassificationHistory_ID" Type="Edm.Guid"/>
+                <Property Name="paintDetailHistory_ID" Type="Edm.Guid"/>
+                <Property Name="occurrenceStartDate" Type="Edm.Date"/>
+                <Property Name="occurrenceEndDate" Type="Edm.Date"/>
                 <NavigationProperty Name="product" Type="CatalogService.Products">
-                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="defectType" Type="CatalogService.MstrDefectTypes">
-                    <ReferentialConstraint Property="defectType_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="defectType_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="defectClassificationHistory" Type="CatalogService.DefectClassificationHistories">
-                    <ReferentialConstraint Property="defectClassificationHistory_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="defectClassificationHistory_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="paintDetailHistory" Type="CatalogService.PaintDetailHistories">
-                    <ReferentialConstraint Property="paintDetailHistory_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="paintDetailHistory_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
             </EntityType>
             <EntityType Name="DefectClassificationHistories">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="category_ID" Type="Edm.Guid" />
-                <Property Name="subCategory_ID" Type="Edm.Guid" />
-                <Property Name="JV_ID" Type="Edm.Guid" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="category_ID" Type="Edm.Guid"/>
+                <Property Name="subCategory_ID" Type="Edm.Guid"/>
+                <Property Name="JV_ID" Type="Edm.Guid"/>
                 <NavigationProperty Name="category" Type="CatalogService.MstrCategories">
-                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="subCategory" Type="CatalogService.MstrSubCategories">
-                    <ReferentialConstraint Property="subCategory_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="subCategory_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="JV" Type="CatalogService.MstrJVs">
-                    <ReferentialConstraint Property="JV_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="JV_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
             </EntityType>
             <EntityType Name="PaintDetailHistories">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="layer_ID" Type="Edm.Guid" />
-                <Property Name="targetSubstrate_ID" Type="Edm.Guid" />
-                <Property Name="substrateMaterial_ID" Type="Edm.Guid" />
-                <Property Name="paintType_ID" Type="Edm.Guid" />
-                <Property Name="crossLinkType_ID" Type="Edm.Guid" />
-                <Property Name="exteriorInterior_ID" Type="Edm.Guid" />
-                <Property Name="atomization_ID" Type="Edm.Guid" />
-                <Property Name="electrostatic_ID" Type="Edm.Guid" />
-                <Property Name="composition_ID" Type="Edm.Guid" />
-                <Property Name="dryingCondition_ID" Type="Edm.Guid" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="layer_ID" Type="Edm.Guid"/>
+                <Property Name="targetSubstrate_ID" Type="Edm.Guid"/>
+                <Property Name="substrateMaterial_ID" Type="Edm.Guid"/>
+                <Property Name="paintType_ID" Type="Edm.Guid"/>
+                <Property Name="crossLinkType_ID" Type="Edm.Guid"/>
+                <Property Name="exteriorInterior_ID" Type="Edm.Guid"/>
+                <Property Name="atomization_ID" Type="Edm.Guid"/>
+                <Property Name="electrostatic_ID" Type="Edm.Guid"/>
+                <Property Name="composition_ID" Type="Edm.Guid"/>
+                <Property Name="dryingCondition_ID" Type="Edm.Guid"/>
                 <NavigationProperty Name="layer" Type="CatalogService.MstrLayers">
-                    <ReferentialConstraint Property="layer_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="layer_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="targetSubstrate" Type="CatalogService.MstrTargetSubstrates">
-                    <ReferentialConstraint Property="targetSubstrate_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="targetSubstrate_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="substrateMaterial" Type="CatalogService.MstrSubstrateMaterials">
-                    <ReferentialConstraint Property="substrateMaterial_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="substrateMaterial_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="paintType" Type="CatalogService.MstrPaintTypes">
-                    <ReferentialConstraint Property="paintType_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="paintType_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="crossLinkType" Type="CatalogService.MstrCrosslinkTypes">
-                    <ReferentialConstraint Property="crossLinkType_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="crossLinkType_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="exteriorInterior" Type="CatalogService.MstrExteriorInteriors">
-                    <ReferentialConstraint Property="exteriorInterior_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="exteriorInterior_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="atomization" Type="CatalogService.MstrAtomizations">
-                    <ReferentialConstraint Property="atomization_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="atomization_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="electrostatic" Type="CatalogService.MstrElectrostatics">
-                    <ReferentialConstraint Property="electrostatic_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="electrostatic_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="composition" Type="CatalogService.MstrCompositions">
-                    <ReferentialConstraint Property="composition_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="composition_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <NavigationProperty Name="dryingCondition" Type="CatalogService.MstrDryingConditions">
-                    <ReferentialConstraint Property="dryingCondition_ID" ReferencedProperty="ID" />
+                    <ReferentialConstraint Property="dryingCondition_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
             </EntityType>
             <EntityType Name="MainCustomers">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrUserTypes">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="60" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="60"/>
             </EntityType>
             <EntityType Name="MstrVehicleTypes">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrDefectTypes">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrData">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrCategories">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrSubCategories">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrJVs">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrDocumentCategories">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrLayers">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrTargetSubstrates">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrSubstrateMaterials">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrPaintTypes">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrCrosslinkTypes">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrExteriorInteriors">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrAtomizations">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrElectrostatics">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrCompositions">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityType Name="MstrDryingConditions">
                 <Key>
-                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="ID"/>
                 </Key>
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="name" Type="Edm.String" MaxLength="120"/>
             </EntityType>
             <EntityContainer Name="EntityContainer">
                 <EntitySet Name="Products" EntityType="CatalogService.Products">
-                    <NavigationPropertyBinding Path="mainCustomer" Target="MainCustomers" />
-                    <NavigationPropertyBinding Path="vehicleType" Target="MstrVehicleTypes" />
-                    <NavigationPropertyBinding Path="defectDetails" Target="DefectDetails" />
+                    <NavigationPropertyBinding Path="mainCustomer" Target="MainCustomers"/>
+                    <NavigationPropertyBinding Path="vehicleType" Target="MstrVehicleTypes"/>
+                    <NavigationPropertyBinding Path="defectDetails" Target="DefectDetails"/>
                 </EntitySet>
-                <EntitySet Name="Books" EntityType="CatalogService.Books" />
+                <EntitySet Name="Books" EntityType="CatalogService.Books"/>
                 <EntitySet Name="Users" EntityType="CatalogService.Users">
-                    <NavigationPropertyBinding Path="userType" Target="MstrUserTypes" />
+                    <NavigationPropertyBinding Path="userType" Target="MstrUserTypes"/>
                 </EntitySet>
                 <EntitySet Name="DefectDetails" EntityType="CatalogService.DefectDetails">
-                    <NavigationPropertyBinding Path="product" Target="Products" />
-                    <NavigationPropertyBinding Path="defectType" Target="MstrDefectTypes" />
-                    <NavigationPropertyBinding Path="defectClassification" Target="DefectClassifications" />
-                    <NavigationPropertyBinding Path="paintDetail" Target="PaintDetails" />
+                    <NavigationPropertyBinding Path="product" Target="Products"/>
+                    <NavigationPropertyBinding Path="defectType" Target="MstrDefectTypes"/>
+                    <NavigationPropertyBinding Path="defectClassification" Target="DefectClassifications"/>
+                    <NavigationPropertyBinding Path="paintDetail" Target="PaintDetails"/>
                 </EntitySet>
                 <EntitySet Name="DefectClassifications" EntityType="CatalogService.DefectClassifications">
-                    <NavigationPropertyBinding Path="category" Target="MstrCategories" />
-                    <NavigationPropertyBinding Path="subCategory" Target="MstrSubCategories" />
-                    <NavigationPropertyBinding Path="JV" Target="MstrJVs" />
+                    <NavigationPropertyBinding Path="category" Target="MstrCategories"/>
+                    <NavigationPropertyBinding Path="subCategory" Target="MstrSubCategories"/>
+                    <NavigationPropertyBinding Path="JV" Target="MstrJVs"/>
                 </EntitySet>
                 <EntitySet Name="PaintDetails" EntityType="CatalogService.PaintDetails">
-                    <NavigationPropertyBinding Path="layer" Target="MstrLayers" />
-                    <NavigationPropertyBinding Path="targetSubstrate" Target="MstrTargetSubstrates" />
-                    <NavigationPropertyBinding Path="substrateMaterial" Target="MstrSubstrateMaterials" />
-                    <NavigationPropertyBinding Path="paintType" Target="MstrPaintTypes" />
-                    <NavigationPropertyBinding Path="crossLinkType" Target="MstrCrosslinkTypes" />
-                    <NavigationPropertyBinding Path="exteriorInterior" Target="MstrExteriorInteriors" />
-                    <NavigationPropertyBinding Path="atomization" Target="MstrAtomizations" />
-                    <NavigationPropertyBinding Path="electrostatic" Target="MstrElectrostatics" />
-                    <NavigationPropertyBinding Path="composition" Target="MstrCompositions" />
-                    <NavigationPropertyBinding Path="dryingCondition" Target="MstrDryingConditions" />
+                    <NavigationPropertyBinding Path="layer" Target="MstrLayers"/>
+                    <NavigationPropertyBinding Path="targetSubstrate" Target="MstrTargetSubstrates"/>
+                    <NavigationPropertyBinding Path="substrateMaterial" Target="MstrSubstrateMaterials"/>
+                    <NavigationPropertyBinding Path="paintType" Target="MstrPaintTypes"/>
+                    <NavigationPropertyBinding Path="crossLinkType" Target="MstrCrosslinkTypes"/>
+                    <NavigationPropertyBinding Path="exteriorInterior" Target="MstrExteriorInteriors"/>
+                    <NavigationPropertyBinding Path="atomization" Target="MstrAtomizations"/>
+                    <NavigationPropertyBinding Path="electrostatic" Target="MstrElectrostatics"/>
+                    <NavigationPropertyBinding Path="composition" Target="MstrCompositions"/>
+                    <NavigationPropertyBinding Path="dryingCondition" Target="MstrDryingConditions"/>
                 </EntitySet>
                 <EntitySet Name="DefectDetailHistories" EntityType="CatalogService.DefectDetailHistories">
-                    <NavigationPropertyBinding Path="product" Target="Products" />
-                    <NavigationPropertyBinding Path="defectType" Target="MstrDefectTypes" />
-                    <NavigationPropertyBinding Path="defectClassificationHistory" Target="DefectClassificationHistories" />
-                    <NavigationPropertyBinding Path="paintDetailHistory" Target="PaintDetailHistories" />
+                    <NavigationPropertyBinding Path="product" Target="Products"/>
+                    <NavigationPropertyBinding Path="defectType" Target="MstrDefectTypes"/>
+                    <NavigationPropertyBinding Path="defectClassificationHistory" Target="DefectClassificationHistories"/>
+                    <NavigationPropertyBinding Path="paintDetailHistory" Target="PaintDetailHistories"/>
                 </EntitySet>
                 <EntitySet Name="DefectClassificationHistories" EntityType="CatalogService.DefectClassificationHistories">
-                    <NavigationPropertyBinding Path="category" Target="MstrCategories" />
-                    <NavigationPropertyBinding Path="subCategory" Target="MstrSubCategories" />
-                    <NavigationPropertyBinding Path="JV" Target="MstrJVs" />
+                    <NavigationPropertyBinding Path="category" Target="MstrCategories"/>
+                    <NavigationPropertyBinding Path="subCategory" Target="MstrSubCategories"/>
+                    <NavigationPropertyBinding Path="JV" Target="MstrJVs"/>
                 </EntitySet>
                 <EntitySet Name="PaintDetailHistories" EntityType="CatalogService.PaintDetailHistories">
-                    <NavigationPropertyBinding Path="layer" Target="MstrLayers" />
-                    <NavigationPropertyBinding Path="targetSubstrate" Target="MstrTargetSubstrates" />
-                    <NavigationPropertyBinding Path="substrateMaterial" Target="MstrSubstrateMaterials" />
-                    <NavigationPropertyBinding Path="paintType" Target="MstrPaintTypes" />
-                    <NavigationPropertyBinding Path="crossLinkType" Target="MstrCrosslinkTypes" />
-                    <NavigationPropertyBinding Path="exteriorInterior" Target="MstrExteriorInteriors" />
-                    <NavigationPropertyBinding Path="atomization" Target="MstrAtomizations" />
-                    <NavigationPropertyBinding Path="electrostatic" Target="MstrElectrostatics" />
-                    <NavigationPropertyBinding Path="composition" Target="MstrCompositions" />
-                    <NavigationPropertyBinding Path="dryingCondition" Target="MstrDryingConditions" />
+                    <NavigationPropertyBinding Path="layer" Target="MstrLayers"/>
+                    <NavigationPropertyBinding Path="targetSubstrate" Target="MstrTargetSubstrates"/>
+                    <NavigationPropertyBinding Path="substrateMaterial" Target="MstrSubstrateMaterials"/>
+                    <NavigationPropertyBinding Path="paintType" Target="MstrPaintTypes"/>
+                    <NavigationPropertyBinding Path="crossLinkType" Target="MstrCrosslinkTypes"/>
+                    <NavigationPropertyBinding Path="exteriorInterior" Target="MstrExteriorInteriors"/>
+                    <NavigationPropertyBinding Path="atomization" Target="MstrAtomizations"/>
+                    <NavigationPropertyBinding Path="electrostatic" Target="MstrElectrostatics"/>
+                    <NavigationPropertyBinding Path="composition" Target="MstrCompositions"/>
+                    <NavigationPropertyBinding Path="dryingCondition" Target="MstrDryingConditions"/>
                 </EntitySet>
-                <EntitySet Name="MainCustomers" EntityType="CatalogService.MainCustomers" />
-                <EntitySet Name="MstrUserTypes" EntityType="CatalogService.MstrUserTypes" />
-                <EntitySet Name="MstrVehicleTypes" EntityType="CatalogService.MstrVehicleTypes" />
-                <EntitySet Name="MstrDefectTypes" EntityType="CatalogService.MstrDefectTypes" />
-                <EntitySet Name="MstrData" EntityType="CatalogService.MstrData" />
-                <EntitySet Name="MstrCategories" EntityType="CatalogService.MstrCategories" />
-                <EntitySet Name="MstrSubCategories" EntityType="CatalogService.MstrSubCategories" />
-                <EntitySet Name="MstrJVs" EntityType="CatalogService.MstrJVs" />
-                <EntitySet Name="MstrDocumentCategories" EntityType="CatalogService.MstrDocumentCategories" />
-                <EntitySet Name="MstrLayers" EntityType="CatalogService.MstrLayers" />
-                <EntitySet Name="MstrTargetSubstrates" EntityType="CatalogService.MstrTargetSubstrates" />
-                <EntitySet Name="MstrSubstrateMaterials" EntityType="CatalogService.MstrSubstrateMaterials" />
-                <EntitySet Name="MstrPaintTypes" EntityType="CatalogService.MstrPaintTypes" />
-                <EntitySet Name="MstrCrosslinkTypes" EntityType="CatalogService.MstrCrosslinkTypes" />
-                <EntitySet Name="MstrExteriorInteriors" EntityType="CatalogService.MstrExteriorInteriors" />
-                <EntitySet Name="MstrAtomizations" EntityType="CatalogService.MstrAtomizations" />
-                <EntitySet Name="MstrElectrostatics" EntityType="CatalogService.MstrElectrostatics" />
-                <EntitySet Name="MstrCompositions" EntityType="CatalogService.MstrCompositions" />
-                <EntitySet Name="MstrDryingConditions" EntityType="CatalogService.MstrDryingConditions" />
+                <EntitySet Name="MainCustomers" EntityType="CatalogService.MainCustomers"/>
+                <EntitySet Name="MstrUserTypes" EntityType="CatalogService.MstrUserTypes"/>
+                <EntitySet Name="MstrVehicleTypes" EntityType="CatalogService.MstrVehicleTypes"/>
+                <EntitySet Name="MstrDefectTypes" EntityType="CatalogService.MstrDefectTypes"/>
+                <EntitySet Name="MstrData" EntityType="CatalogService.MstrData"/>
+                <EntitySet Name="MstrCategories" EntityType="CatalogService.MstrCategories"/>
+                <EntitySet Name="MstrSubCategories" EntityType="CatalogService.MstrSubCategories"/>
+                <EntitySet Name="MstrJVs" EntityType="CatalogService.MstrJVs"/>
+                <EntitySet Name="MstrDocumentCategories" EntityType="CatalogService.MstrDocumentCategories"/>
+                <EntitySet Name="MstrLayers" EntityType="CatalogService.MstrLayers"/>
+                <EntitySet Name="MstrTargetSubstrates" EntityType="CatalogService.MstrTargetSubstrates"/>
+                <EntitySet Name="MstrSubstrateMaterials" EntityType="CatalogService.MstrSubstrateMaterials"/>
+                <EntitySet Name="MstrPaintTypes" EntityType="CatalogService.MstrPaintTypes"/>
+                <EntitySet Name="MstrCrosslinkTypes" EntityType="CatalogService.MstrCrosslinkTypes"/>
+                <EntitySet Name="MstrExteriorInteriors" EntityType="CatalogService.MstrExteriorInteriors"/>
+                <EntitySet Name="MstrAtomizations" EntityType="CatalogService.MstrAtomizations"/>
+                <EntitySet Name="MstrElectrostatics" EntityType="CatalogService.MstrElectrostatics"/>
+                <EntitySet Name="MstrCompositions" EntityType="CatalogService.MstrCompositions"/>
+                <EntitySet Name="MstrDryingConditions" EntityType="CatalogService.MstrDryingConditions"/>
             </EntityContainer>
             <Annotations Target="CatalogService.Products">
                 <Annotation Term="UI.HeaderInfo">
@@ -646,7 +647,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -671,7 +672,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -723,7 +724,7 @@
                 </Annotation>
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
-                        <PropertyPath>userType/name</PropertyPath>
+                        <PropertyPath>userType</PropertyPath>
                         <PropertyPath>name</PropertyPath>
                         <PropertyPath>email</PropertyPath>
                     </Collection>
@@ -732,7 +733,7 @@
                     <Collection>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value">
-                                <Path>userType/name</Path>
+                                <Path>userType</Path>
                             </PropertyValue>
                             <PropertyValue Property="Label">
                                 <String>User Type</String>
@@ -805,7 +806,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -830,7 +831,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -865,7 +866,7 @@
                     <Collection>
                         <PropertyPath>defectType/name</PropertyPath>
                         <PropertyPath>defectClassification/category/name</PropertyPath>
-                        <PropertyPath>defectClassification/subCategory/name</PropertyPath>
+                        <PropertyPath>defectClassification/subCategory</PropertyPath>
                         <PropertyPath>title</PropertyPath>
                     </Collection>
                 </Annotation>
@@ -1256,7 +1257,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -1281,7 +1282,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -1337,7 +1338,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -1362,7 +1363,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -1418,7 +1419,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -1443,7 +1444,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -1479,7 +1480,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -1504,7 +1505,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -1550,7 +1551,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -1575,7 +1576,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -1626,7 +1627,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -1651,7 +1652,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -1682,7 +1683,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -1707,7 +1708,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -1800,7 +1801,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -1825,7 +1826,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -1884,7 +1885,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -1909,7 +1910,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2002,7 +2003,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2027,7 +2028,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2086,7 +2087,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2111,7 +2112,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2170,7 +2171,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2195,7 +2196,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2254,7 +2255,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2279,7 +2280,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2338,7 +2339,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2363,7 +2364,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2422,7 +2423,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2447,7 +2448,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2506,7 +2507,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2531,7 +2532,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2590,7 +2591,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2615,7 +2616,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2674,7 +2675,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2699,7 +2700,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2758,7 +2759,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2783,7 +2784,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2842,7 +2843,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2867,7 +2868,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -2926,7 +2927,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -2951,7 +2952,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -3010,7 +3011,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -3035,7 +3036,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -3094,7 +3095,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -3119,7 +3120,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -3178,7 +3179,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -3203,7 +3204,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
@@ -3257,7 +3258,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Created By</String>
@@ -3282,7 +3283,7 @@
                     <Bool>true</Bool>
                 </Annotation>
                 <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
+                    <String>A user's unique ID</String>
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>

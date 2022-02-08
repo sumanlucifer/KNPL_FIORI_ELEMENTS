@@ -9,7 +9,7 @@ sap.ui.define(['sap/fe/test/ObjectPage'], function(ObjectPage) {
 
     return new ObjectPage(
         {
-            appId: 'com.knpl.tss.tssportal', // MANDATORY: Compare sap.app.id in manifest.json
+            appId: 'com.knpl.tssportal', // MANDATORY: Compare sap.app.id in manifest.json
             componentId: 'ProductsObjectPage', // MANDATORY: Compare sap.ui5.routing.targets.id in manifest.json
             entitySet: 'Products' // MANDATORY: Compare entityset in manifest.json
         },
