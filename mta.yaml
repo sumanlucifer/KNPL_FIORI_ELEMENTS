@@ -50,6 +50,10 @@ modules:
       - comknpluseraccessmgmt.zip
       name: comknpluseraccessmgmt
       target-path: resources/
+    - artifacts:
+      - comknploverview.zip
+      name: comknploverview
+      target-path: resources/
 - name: comknpltssportal
   type: html5
   path: tss-portal
@@ -63,6 +67,16 @@ modules:
 - name: comknpluseraccessmgmt
   type: html5
   path: user-access-mgmt
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknploverview
+  type: html5
+  path: overview
   build-parameters:
     build-result: dist
     builder: custom

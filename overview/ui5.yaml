@@ -1,6 +1,6 @@
 specVersion: '2.4'
 metadata:
-  name: 'user-access-mgmt'
+  name: 'overview'
 type: application
 server:
   customMiddleware:
@@ -17,15 +17,6 @@ server:
         - /test-resources
         url: https://ui5.sap.com
         version:  # The UI5 version, for instance, 1.78.1. Empty means latest version
-  - name: sap-fe-mockserver
-    beforeMiddleware: fiori-tools-proxy
-    configuration:
-      service:
-        urlBasePath: /odata/v4/CatalogService
-        name: ''
-        metadataXmlPath: ./webapp/localService/metadata.xml
-        mockdataRootPath: ./webapp/localService/mockdata
-        generateMockData: true
   - name: fiori-tools-appreload
     afterMiddleware: compression
     configuration:
@@ -35,5 +26,5 @@ server:
   - name: fiori-tools-preview
     afterMiddleware: fiori-tools-appreload
     configuration:
-      component: com.knpl.useraccessmgmt
+      component: com.knpl.overview
       ui5Theme: sap_fiori_3

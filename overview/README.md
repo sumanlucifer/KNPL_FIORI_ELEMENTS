@@ -1,25 +1,24 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Wed Feb 09 2022 11:57:00 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Wed Feb 09 2022 13:49:08 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori|
 |**App Generator Version**<br>1.4.7|
 |**Generation Platform**<br>SAP Business Application Studio|
-|**Floorplan Used**<br>List Report Object Page V4|
+|**Floorplan Used**<br>Analytical List Page V4|
 |**Service Type**<br>OData Url|
-|**Service URL**<br>https://kansai-nerolac-paints-ltd-knpl-dev-projects-tss-knpl-tss987df96.cfapps.ap11.hana.ondemand.com/odata/v4/CatalogService/
-|**Module Name**<br>tss-portal|
-|**Application Title**<br>TSS Portal|
+|**Service URL**<br>https://kansai-nerolac-paints-ltd-knpl-dev-projects-tss-knpl-tss987df96.cfapps.ap11.hana.ondemand.com/odata/v4/ChartService/
+|**Module Name**<br>overview|
+|**Application Title**<br>Overview|
 |**Namespace**<br>com.knpl|
 |**UI5 Theme**<br>sap_fiori_3|
 |**UI5 Version**<br>Latest|
 |**Enable Code Assist Libraries**<br>False|
 |**Add Eslint configuration**<br>False|
 |**Enable Telemetry**<br>True|
-|**Main Entity**<br>Products|
-|**Navigation Entity**<br>defectDetails|
+|**Main Entity**<br>DefectChart|
 
-## tss-portal
+## overview
 
 A Fiori application.
 

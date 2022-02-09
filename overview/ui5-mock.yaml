@@ -1,6 +1,6 @@
 specVersion: '2.4'
 metadata:
-  name: 'user-access-mgmt'
+  name: 'overview'
 type: application
 server:
   customMiddleware:
@@ -21,7 +21,7 @@ server:
     beforeMiddleware: fiori-tools-proxy
     configuration:
       service:
-        urlBasePath: /odata/v4/CatalogService
+        urlBasePath: /odata/v4/ChartService
         name: ''
         metadataXmlPath: ./webapp/localService/metadata.xml
         mockdataRootPath: ./webapp/localService/mockdata
@@ -35,5 +35,5 @@ server:
   - name: fiori-tools-preview
     afterMiddleware: fiori-tools-appreload
     configuration:
-      component: com.knpl.useraccessmgmt
+      component: com.knpl.overview
       ui5Theme: sap_fiori_3

@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.knpl.tssportal",
+        "id": "com.knpl.overview",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -11,7 +11,7 @@
         "description": "{{appDescription}}",
         "dataSources": {
             "mainService": {
-                "uri": "/odata/v4/CatalogService/",
+                "uri": "/odata/v4/ChartService/",
                 "type": "OData",
                 "settings": {
                     "annotations": [
@@ -37,13 +37,13 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "com-knpl-tssportal-inbound": {
+                "com-knpl-overview-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "TSSPortal",
-                    "action": "Manage",
+                    "semanticObject": "Overview",
+                    "action": "Display",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
                     "icon": ""
@@ -76,8 +76,7 @@
             "minUI5Version": "1.97.2",
             "libs": {
                 "sap.ui.core": {},
-                "sap.fe.templates": {},
-                "sap.f": {}
+                "sap.fe.templates": {}
             }
         },
         "models": {
@@ -104,119 +103,75 @@
             "routes": [
                 {
                     "pattern": ":?query:",
-                    "name": "ProductsList",
-                    "target": [
-                        "ProductsList"
-                    ]
+                    "name": "DefectChartList",
+                    "target": "DefectChartList"
                 },
                 {
-                    "pattern": "Products({key}):?query:",
-                    "name": "ProductsObjectPage",
-                    "target": [
-                        "ProductsList",
-                        "ProductsObjectPage"
-                    ]
-                },
-                {
-                    "pattern": "Products({key})/defectDetails({key2}):?query:",
-                    "name": "DefectDetailsObjectPage",
-                    "target": [
-                        "ProductsList",
-                        "ProductsObjectPage",
-                        "DefectDetailsObjectPage"
-                    ]
+                    "pattern": "DefectChart({key}):?query:",
+                    "name": "DefectChartObjectPage",
+                    "target": "DefectChartObjectPage"
                 }
             ],
             "targets": {
-                "ProductsList": {
+                "DefectChartList": {
                     "type": "Component",
-                    "id": "ProductsList",
+                    "id": "DefectChartList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
-                            "entitySet": "Products",
-                            "variantManagement": "None",
+                            "entitySet": "DefectChart",
+                            "variantManagement": "Page",
                             "navigation": {
-                                "Products": {
+                                "DefectChart": {
                                     "detail": {
-                                        "route": "ProductsObjectPage"
+                                        "route": "DefectChartObjectPage"
                                     }
                                 }
                             },
-                            "initialLoad": true,
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
-                                    "columns": {
-                                        "DataField::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::code": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::vehicleType::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::mainCustomer::name": {
-                                            "width": "100%"
-                                        }
+                                    "tableSettings": {
+                                        "type": "AnalyticalTable",
+                                        "selectionMode": "Auto"
                                     }
                                 }
+                            },
+                            "views": {
+                                "paths": [
+                                    {
+                                        "primary": [
+                                            {
+                                                "annotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant"
+                                            }
+                                        ],
+                                        "secondary": [
+                                            {
+                                                "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
+                                            }
+                                        ],
+                                        "defaultPath": "both"
+                                    }
+                                ]
                             }
                         }
-                    },
-                    "controlAggregation": "beginColumnPages",
-                    "contextPattern": ""
+                    }
                 },
-                "ProductsObjectPage": {
+                "DefectChartObjectPage": {
                     "type": "Component",
-                    "id": "ProductsObjectPage",
+                    "id": "DefectChartObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
-                            "entitySet": "Products",
-                            "navigation": {
-                                "defectDetails": {
-                                    "detail": {
-                                        "route": "DefectDetailsObjectPage"
-                                    }
-                                }
-                            }
+                            "entitySet": "DefectChart"
                         }
-                    },
-                    "controlAggregation": "midColumnPages",
-                    "contextPattern": "/Products({key})"
-                },
-                "DefectDetailsObjectPage": {
-                    "type": "Component",
-                    "id": "DefectDetailsObjectPage",
-                    "name": "sap.fe.templates.ObjectPage",
-                    "options": {
-                        "settings": {
-                            "entitySet": "DefectDetails"
-                        }
-                    },
-                    "controlAggregation": "endColumnPages",
-                    "contextPattern": "/Products({key})/defectDetails({key2})"
+                    }
                 }
-            },
-            "config": {
-                "flexibleColumnLayout": {
-                    "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
-                    "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
-                },
-                "routerClass": "sap.f.routing.Router"
             }
         },
         "contentDensities": {
             "compact": true,
             "cozy": true
-        },
-        "rootView": {
-            "viewName": "sap.fe.templates.RootContainer.view.Fcl",
-            "type": "XML",
-            "async": true,
-            "id": "appRootView"
         }
     },
     "sap.platform.abap": {

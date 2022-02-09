@@ -37,9 +37,51 @@
                 <Annotation Term="UI.Facets">
                     <Collection>
                         <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="ID" String="GeneratedFacet1"/>
-                            <PropertyValue Property="Label" String="General Information"/>
-                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup1"/>
+                            <PropertyValue Property="ID" String="DefectDetails"/>
+                            <PropertyValue Property="Target" AnnotationPath="defectDetails/@UI.LineItem#DefectDetails"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails">
+                <Annotation Term="UI.LineItem" Qualifier="DefectDetails">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="outline"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="occurrenceStartDate"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="occurrenceEndDate"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="defectType/name"/>
+                        </Record>
+                        </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main"/>
+                                        <PropertyValue Property="Label" String="Basic Details"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main2"/>
+                                        <PropertyValue Property="Label" String="Defect Details"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main3"/>
+                                        <PropertyValue Property="Label" String="Paint Details"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
                         </Record>
                     </Collection>
                 </Annotation>
