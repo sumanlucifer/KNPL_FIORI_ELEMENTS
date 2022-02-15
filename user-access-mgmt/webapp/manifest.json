@@ -11,7 +11,7 @@
         "description": "{{appDescription}}",
         "dataSources": {
             "mainService": {
-                "uri": "/odata/v4/CatalogService/",
+                "uri": "/odata/v4/UserService/",
                 "type": "OData",
                 "settings": {
                     "annotations": [
@@ -46,7 +46,7 @@
                     "action": "Display",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
-                    "icon": ""
+                    "icon": "sap-icon://user-settings"
                 }
             }
         }

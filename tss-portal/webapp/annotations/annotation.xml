@@ -1,73 +1,79 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
-        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
     </edmx:Reference>
-    <edmx:Reference Uri="/odata/v4/CatalogService/$metadata">
-        <edmx:Include Namespace="CatalogService"/>
+    <edmx:Reference Uri="/odata/v4/DefectService/$metadata">
+        <edmx:Include Namespace="DefectService" />
     </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.knpl">
-            <Annotations Target="CatalogService.Products">
-                <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup1">
-                    <Record Type="UI.FieldGroupType">
-                        <PropertyValue Property="Data">
-                            <Collection>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="createdAt"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="createdBy"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="modifiedAt"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="modifiedBy"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="code"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="name"/>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="UI.Facets">
+            <Annotations Target="DefectService.DefectDetailVersions">
+                <Annotation Term="UI.LineItem">
                     <Collection>
-                        <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="ID" String="DefectDetails"/>
-                            <PropertyValue Property="Target" AnnotationPath="defectDetails/@UI.LineItem#DefectDetails"/>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="version" />
+                            <PropertyValue Property="Label" String="{@i18n>version}" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdAt" />
+                            <PropertyValue Property="Label" String="{@i18n>createdAt}" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdBy" />
+                            <PropertyValue Property="Label" String="{@i18n>createdBy}" />
                         </Record>
                     </Collection>
                 </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="i18nversion1">
+                    <Collection>
+                        
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="version"/>
+                            <PropertyValue Property="Label" String="{@i18n>version}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdAt"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdBy"/>
+                        </Record></Collection>
+                </Annotation>
             </Annotations>
-            <Annotations Target="CatalogService.DefectDetails">
-                <Annotation Term="UI.LineItem" Qualifier="DefectDetails">
+            <Annotations Target="DefectService.DefectDetails">
+                <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="title"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="outline"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="occurrenceStartDate"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="occurrenceEndDate"/>
+                            <PropertyValue Property="Label" String="{@i18n>title}"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="defectType/name"/>
+                            <PropertyValue Property="Label" String="{@i18n>defectType}"/>
                         </Record>
-                        </Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="product/name"/>
+                            <PropertyValue Property="Label" String="{@i18n>productName}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="vehicleType/name"/>
+                            <PropertyValue Property="Label" String="{@i18n>vehicleType}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="mainCustomer/name"/>
+                            <PropertyValue Property="Label" String="{@i18n>mainCustomer}"/>
+                        </Record>
+                    </Collection>
                 </Annotation>
                 <Annotation Term="UI.Facets">
                     <Collection>
                         <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Label" String="{@i18n>details}"/>
                             <PropertyValue Property="Facets">
                                 <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#ProductDetails"/>
+                                        <PropertyValue Property="Label" String="Product Details"/>
+                                    </Record>
                                     <Record Type="UI.ReferenceFacet">
                                         <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main"/>
                                         <PropertyValue Property="Label" String="Basic Details"/>
@@ -82,6 +88,11 @@
                                     </Record>
                                 </Collection>
                             </PropertyValue>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="{@i18n>version1}"/>
+                            <PropertyValue Property="ID" String="i18nversion1"/>
+                            <PropertyValue Property="Target" AnnotationPath="versions/@UI.LineItem#i18nversion1"/>
                         </Record>
                     </Collection>
                 </Annotation>

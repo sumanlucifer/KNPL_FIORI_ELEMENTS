@@ -1,13 +1,13 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Wed Feb 09 2022 11:57:00 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Mon Feb 14 2022 12:01:42 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori|
 |**App Generator Version**<br>1.4.7|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>List Report Object Page V4|
 |**Service Type**<br>OData Url|
-|**Service URL**<br>https://kansai-nerolac-paints-ltd-knpl-dev-projects-tss-knpl-tss987df96.cfapps.ap11.hana.ondemand.com/odata/v4/CatalogService/
+|**Service URL**<br>https://kansai-nerolac-paints-ltd-knpl-dev-projects-tss-knpl-tss987df96.cfapps.ap11.hana.ondemand.com/odata/v4/DefectService/
 |**Module Name**<br>tss-portal|
 |**Application Title**<br>TSS Portal|
 |**Namespace**<br>com.knpl|
@@ -16,8 +16,8 @@
 |**Enable Code Assist Libraries**<br>False|
 |**Add Eslint configuration**<br>False|
 |**Enable Telemetry**<br>True|
-|**Main Entity**<br>Products|
-|**Navigation Entity**<br>defectDetails|
+|**Main Entity**<br>DefectDetails|
+|**Navigation Entity**<br>None|
 
 ## tss-portal
 
