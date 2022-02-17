@@ -143,20 +143,38 @@
                                     }
                                 }
                             },
+                            "content": {
+                                "header": {
+                                    "visible": true,
+                                    "anchorBarVisible": true,
+                                    "actions": {
+                                        "CustomActionOPHeader": {
+                                            "press": "com.knpl.tssportal.ext.CustomController.onRaisePress",
+                                            "visible": true,
+                                            "text": "Raise a Request"
+                                        }
+                                    }
+                                }
+                            },
+                            "initialLoad": "Enabled",
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "actions": {
-                                        "Download": {
-                                            "text": "Download ",
-                                            "icon": "sap-icon://manager-insight",
-                                            "press": "com.knpl.tssportal.ext.CustomController.onDownloadPress"
-                                        },
-                                        "upload": {
-                                            "text": "Upload",
-                                            "press": "com.knpl.tssportal.ext.CustomController.onUploadPress"
+                                        "button": {
+                                            "text": "Download"
+                                           
                                         }
                                     },
                                     "columns": {
+                                        "DataField::title": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::defectType::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::product::name": {
+                                            "width": "100%"
+                                        },
                                         "DataField::product::code": {
                                             "width": "100%"
                                         },
@@ -164,15 +182,6 @@
                                             "width": "100%"
                                         },
                                         "DataField::product::mainCustomer::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::title": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::defectType::name": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::product_ID": {
                                             "width": "100%"
                                         },
                                         "DataField::vehicleType::name": {
@@ -186,8 +195,7 @@
                                         "enableExport": false
                                     }
                                 }
-                            },
-                            "initialLoad": "Enabled"
+                            }
                         }
                     },
                     "controlAggregation": "beginColumnPages",
@@ -208,9 +216,19 @@
                                     }
                                 }
                             },
-                            "sectionLayout": "Tabs",
                             "controlConfiguration": {
                                 "versions/@com.sap.vocabularies.UI.v1.LineItem#i18nversion1": {
+                                    "columns": {
+                                        "DataField::version": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::createdAt": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::createdBy": {
+                                            "width": "100%"
+                                        }
+                                    },
                                     "tableSettings": {
                                         "enableExport": false,
                                         "personalization": {
@@ -218,7 +236,8 @@
                                         }
                                     }
                                 }
-                            }
+                            },
+                            "sectionLayout": "Tabs"
                         }
                     },
                     "controlAggregation": "midColumnPages",
@@ -231,12 +250,29 @@
                     "options": {
                         "settings": {
                             "entitySet": "DefectDetailVersions",
-                            "navigation": {},
-                            "sectionLayout": "Page"
+                            "navigation": {}
                         }
                     },
                     "controlAggregation": "endColumnPages",
                     "contextPattern": "/DefectDetails({key})/versions({key2})"
+                },
+                "": {
+                    "options": {
+                        "settings": {
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "actions": {
+                                        "idButton": {
+                                            "id": "idButtonButton",
+                                            "text": "Download",
+                                            "press": "com.knpl.tssportal.custom.ListReportExtController.onCustomAction",
+                                            "requiresSelection": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             },
             "config": {

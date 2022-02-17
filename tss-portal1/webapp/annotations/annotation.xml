@@ -38,9 +38,6 @@
                             <PropertyValue Property="Value" Path="createdBy"/>
                         </Record></Collection>
                 </Annotation>
-                <Annotation Term="UI.LineItem" Qualifier="Version">
-                    <Collection/>
-                </Annotation>
             </Annotations>
             <Annotations Target="DefectService.DefectDetails">
                 <Annotation Term="UI.LineItem">
@@ -75,27 +72,27 @@
                                 <Collection>
                                     <Record Type="UI.ReferenceFacet">
                                         <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#ProductDetails"/>
-                                        <PropertyValue Property="Label" String="{@i18n>productDetails}"/>
+                                        <PropertyValue Property="Label" String="Product Details"/>
                                     </Record>
                                     <Record Type="UI.ReferenceFacet">
                                         <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main"/>
-                                        <PropertyValue Property="Label" String="{@i18n>basicDetails}"/>
+                                        <PropertyValue Property="Label" String="Basic Details"/>
                                     </Record>
                                     <Record Type="UI.ReferenceFacet">
                                         <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main2"/>
-                                        <PropertyValue Property="Label" String="{@i18n>defectDetails}"/>
+                                        <PropertyValue Property="Label" String="Defect Details"/>
                                     </Record>
                                     <Record Type="UI.ReferenceFacet">
                                         <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main3"/>
-                                        <PropertyValue Property="Label" String="{@i18n>paintDetails}"/>
+                                        <PropertyValue Property="Label" String="Paint Details"/>
                                     </Record>
                                 </Collection>
                             </PropertyValue>
                         </Record>
                         <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="{@i18n>version1}"/>
                             <PropertyValue Property="ID" String="i18nversion1"/>
                             <PropertyValue Property="Target" AnnotationPath="versions/@UI.LineItem#i18nversion1"/>
-                            <PropertyValue Property="Label" String="{@i18n>version}"/>
                         </Record>
                     </Collection>
                 </Annotation>

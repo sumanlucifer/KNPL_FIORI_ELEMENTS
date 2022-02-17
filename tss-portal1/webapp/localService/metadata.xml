@@ -88,7 +88,6 @@
                 <Property Name="composition_ID" Type="Edm.Guid" />
                 <Property Name="dryingCondition_ID" Type="Edm.Guid" />
                 <Property Name="isArchive" Type="Edm.Boolean" DefaultValue="false" />
-                <Property Name="defectId" Type="Edm.String" MaxLength="10" />
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
@@ -802,7 +801,7 @@
                         <PropertyValue Property="Title">
                             <Record Type="UI.DataField">
                                 <PropertyValue Property="Value">
-                                    <Path>title</Path>
+                                    <Path>defectType_ID</Path>
                                 </PropertyValue>
                             </Record>
                         </PropertyValue>
@@ -1482,9 +1481,6 @@
                 </Annotation>
             </Annotations>
             <Annotations Target="DefectService.DefectDetails/outline">
-                <Annotation Term="UI.MultiLineText">
-                    <Bool>true</Bool>
-                </Annotation>
                 <Annotation Term="Common.FieldControl">
                     <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
                 </Annotation>
@@ -1493,9 +1489,6 @@
                 </Annotation>
             </Annotations>
             <Annotations Target="DefectService.DefectDetails/causeOfTrouble">
-                <Annotation Term="UI.MultiLineText">
-                    <Bool>true</Bool>
-                </Annotation>
                 <Annotation Term="Common.FieldControl">
                     <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
                 </Annotation>
@@ -1504,9 +1497,6 @@
                 </Annotation>
             </Annotations>
             <Annotations Target="DefectService.DefectDetails/countermeasureTaken">
-                <Annotation Term="UI.MultiLineText">
-                    <Bool>true</Bool>
-                </Annotation>
                 <Annotation Term="Common.FieldControl">
                     <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
                 </Annotation>
@@ -2303,9 +2293,6 @@
                     <Record Type="UI.HeaderInfoType">
                         <PropertyValue Property="TypeName">
                             <String>Version</String>
-                        </PropertyValue>
-                        <PropertyValue Property="TypeNamePlural">
-                            <String>Versions</String>
                         </PropertyValue>
                         <PropertyValue Property="Title">
                             <Record Type="UI.DataField">
