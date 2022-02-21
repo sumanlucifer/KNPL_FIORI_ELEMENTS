@@ -229,17 +229,7 @@
                                     }
                                 }
                             },
-                            "sectionLayout": "Tabs",
-                            "controlConfiguration": {
-                                "versions/@com.sap.vocabularies.UI.v1.LineItem#i18nversion1": {
-                                    "tableSettings": {
-                                        "enableExport": false,
-                                        "personalization": {
-                                            "filter": false
-                                        }
-                                    }
-                                }
-                            }
+                            "sectionLayout": "Tabs"
                         }
                     },
                     "controlAggregation": "midColumnPages",
@@ -266,6 +256,29 @@
                     "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
                 },
                 "routerClass": "sap.f.routing.Router"
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.viewExtensions": {
+                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+                        "DefectDetails": {
+                            "type": "XML",
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.knpl.tssportal.ext.fragment.FileUploadImport"
+                        }
+                    }
+                },
+                "sap.ui.controllerExtensions": {
+                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+                        "controllerName": "com.knpl.tssportal.ext.controller.DefectDetailsList",
+                        "sap.ui.generic.app": {
+                            "DefectDetails": {
+								"EntitySet": "DefectDetails"
+							}
+                        }
+                    }
+                }
             }
         },
         "contentDensities": {

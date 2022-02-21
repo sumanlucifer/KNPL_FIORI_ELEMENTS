@@ -10,9 +10,10 @@
                 </form:content>
             </form:SimpleForm>
         </content>
-        <buttons>
-            <Button text="Upload File" type="Emphasized" id="btnUpload" press="handleUploadPress"/>
+    <buttons>
+         <Button text="Upload File" type="Emphasized" id="btnUpload" press="handleUploadPress"/>
             <Button text="Cancel" id="btnCancel" press="handleCancelPress"/>
         </buttons>
+       
     </Dialog>
 </core:FragmentDefinition>
