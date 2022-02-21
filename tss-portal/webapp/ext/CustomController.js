@@ -16,13 +16,19 @@ sap.ui.define([
         },
         onUploadPress: function (oEvent) {
             debugger;
-            this.oFileUploader = new sap.ui.unified.FileUploader({
+            if (!this.importDialog) {
+                //create instance of fragment
+                this.importDialog = sap.ui.xmlfragment("com.knpl.tssportal.ext.fragment.FileUploadImport", this);
+            }
+            this.getInterface().addDependent(this.importDialog);
+            this.importDialog.open();
+        },
 
-            });
-            this.oFileUploader.fireChange();
-        }
-
-
+        handleCancelPress: function (oEvent) {
+            this.importDialog.close();
+            this.importDialog.destroy();
+            this.importDialog = null;
+        },
 
     }
 
