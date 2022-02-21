@@ -21,6 +21,17 @@
                     "localUri": "localService/metadata.xml"
                 }
             },
+            "fileService": {
+                "uri": "/odata/v4/DefectFileService/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation"
+                    ],
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
             "annotation": {
                 "type": "ODataAnnotation",
                 "uri": "annotations/annotation.xml",
@@ -91,6 +102,16 @@
             },
             "": {
                 "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "fileService": {
+                "dataSource": "fileService",
                 "preload": true,
                 "settings": {
                     "synchronizationMode": "None",

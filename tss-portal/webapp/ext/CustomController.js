@@ -1,18 +1,15 @@
 sap.ui.define([
 
     "sap/ui/core/library",
-
-
-
-
-
 ], function (coreLibrary) {
     "use strict";
     return {
 
         onDownloadPress: function (oEvent) {
+           debugger;
+            var downloadAttachmentLink = `${this.getInterface().getModel("fileService").sServiceUrl}DownloadDefectCSVSampleFiles(ID=e8a1f0d0-e157-4d4b-8bcf-27ca5e192336)/content`
+            sap.m.URLHelper.redirect(downloadAttachmentLink, true);  
 
-            debugger;
         },
         onUploadPress: function (oEvent) {
             debugger;
