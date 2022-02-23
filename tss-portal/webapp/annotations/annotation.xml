@@ -45,6 +45,11 @@
             <Annotations Target="DefectService.DefectDetails">
                 <Annotation Term="UI.LineItem">
                     <Collection>
+                        
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="defectId"/>
+                            <PropertyValue Property="Label" String="{@i18n>defectId}"/>
+                        </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="title"/>
                             <PropertyValue Property="Label" String="{@i18n>title}"/>

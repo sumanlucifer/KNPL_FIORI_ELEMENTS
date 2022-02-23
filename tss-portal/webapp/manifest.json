@@ -81,9 +81,11 @@
     "sap.ui5": {
         "resources": {
             "js": [],
-            "css": [{
-                "uri": "css/style.css"
-            }]
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
         },
         "dependencies": {
             "minUI5Version": "1.98.0",
@@ -205,6 +207,9 @@
                                         },
                                         "DataField::mainCustomer::name": {
                                             "width": "100%"
+                                        },
+                                        "DataField::defectId": {
+                                            "width": "100%"
                                         }
                                     },
                                     "tableSettings": {
@@ -233,7 +238,30 @@
                                     }
                                 }
                             },
-                            "sectionLayout": "Tabs"
+                            "sectionLayout": "Tabs",
+                            "controlConfiguration": {
+                                "versions/@com.sap.vocabularies.UI.v1.LineItem#i18nversion1": {
+                                    "columns": {
+                                        "DataField::version": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::createdBy": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::createdAt": {
+                                            "width": "100%"
+                                        }
+                                    },
+                                    "tableSettings": {
+                                        "enableExport": false,
+                                        "personalization": {
+                                            "column": false,
+                                            "sort": false,
+                                            "filter": false
+                                        }
+                                    }
+                                }
+                            }
                         }
                     },
                     "controlAggregation": "midColumnPages",

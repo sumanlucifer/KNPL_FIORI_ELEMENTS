@@ -6,7 +6,7 @@
         "source": "^/odata/(.*)$",
         "target": "/odata/$1",
         "destination": "KNPL_TSS",
-        "authenticationType": "xsuaa",
+        "authenticationType": "none",
         "csrfProtection": false
     },
     {
