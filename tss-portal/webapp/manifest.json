@@ -81,7 +81,9 @@
     "sap.ui5": {
         "resources": {
             "js": [],
-            "css": []
+            "css": [{
+                "uri": "css/style.css"
+            }]
         },
         "dependencies": {
             "minUI5Version": "1.98.0",
@@ -168,13 +170,15 @@
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "actions": {
                                         "Download": {
+                                            "id": "downloadButton",
                                             "text": "Download ",
-                                            "icon": "sap-icon://manager-insight",
-                                            "press": "com.knpl.tssportal.ext.CustomController.onDownloadPress"
+                                            "press": "com.knpl.tssportal.ext.controller.ListReportCustomController.onDownloadPress"
                                         },
                                         "upload": {
+                                            "id": "uploadButton",
                                             "text": "Upload",
-                                            "press": "com.knpl.tssportal.ext.CustomController.onUploadPress"
+                                            "press": "com.knpl.tssportal.ext.controller.ListReportCustomController.onUploadPress",
+                                            "requiresSelection": false
                                         }
                                     },
                                     "columns": {
@@ -256,29 +260,6 @@
                     "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
                 },
                 "routerClass": "sap.f.routing.Router"
-            }
-        },
-        "extends": {
-            "extensions": {
-                "sap.ui.viewExtensions": {
-                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {
-                        "DefectDetails": {
-                            "type": "XML",
-                            "className": "sap.ui.core.Fragment",
-                            "fragmentName": "com.knpl.tssportal.ext.fragment.FileUploadImport"
-                        }
-                    }
-                },
-                "sap.ui.controllerExtensions": {
-                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {
-                        "controllerName": "com.knpl.tssportal.ext.controller.DefectDetailsList",
-                        "sap.ui.generic.app": {
-                            "DefectDetails": {
-								"EntitySet": "DefectDetails"
-							}
-                        }
-                    }
-                }
             }
         },
         "contentDensities": {

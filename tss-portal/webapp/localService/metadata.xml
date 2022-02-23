@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
     <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
         <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities" />
     </edmx:Reference>
@@ -14,6 +14,34 @@
     </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DefectService">
+            <EntityType Name="ProductsFor2Wheeler">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="code" Type="Edm.String" MaxLength="120" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="mainCustomer" Type="Edm.String" MaxLength="120" />
+                <NavigationProperty Name="defectDetails" Type="Collection(DefectService.DefectDetails)" />
+            </EntityType>
+            <EntityType Name="ProductsFor4Wheeler">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="code" Type="Edm.String" MaxLength="120" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="mainCustomer" Type="Edm.String" MaxLength="120" />
+                <NavigationProperty Name="defectDetails" Type="Collection(DefectService.DefectDetails)" />
+            </EntityType>
             <EntityType Name="Products">
                 <Key>
                     <PropertyRef Name="ID" />
@@ -25,34 +53,7 @@
                 <Property Name="ID" Type="Edm.Guid" Nullable="false" />
                 <Property Name="code" Type="Edm.String" MaxLength="120" />
                 <Property Name="name" Type="Edm.String" MaxLength="120" />
-                <NavigationProperty Name="defectDetails" Type="Collection(DefectService.DefectDetails)" Partner="product" />
-            </EntityType>
-            <EntityType Name="ChartDataEntities">
-                <Key>
-                    <PropertyRef Name="ID" />
-                </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="name" Type="Edm.String" MaxLength="30" />
-                <Property Name="number" Type="Edm.Int32" />
-                <Property Name="association_ID" Type="Edm.Guid" />
-                <NavigationProperty Name="association" Type="DefectService.CreateAssociations">
-                    <ReferentialConstraint Property="association_ID" ReferencedProperty="ID" />
-                </NavigationProperty>
-            </EntityType>
-            <EntityType Name="CreateAssociations">
-                <Key>
-                    <PropertyRef Name="ID" />
-                </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="name" Type="Edm.String" MaxLength="30" />
+                <NavigationProperty Name="defectDetails" Type="Collection(DefectService.DefectDetails)" />
             </EntityType>
             <EntityType Name="DefectDetails">
                 <Key>
@@ -92,7 +93,7 @@
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
-                <NavigationProperty Name="product" Type="DefectService.Products" Partner="defectDetails">
+                <NavigationProperty Name="product" Type="DefectService.Products">
                     <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
                 </NavigationProperty>
                 <NavigationProperty Name="mainCustomer" Type="DefectService.MainCustomers">
@@ -181,6 +182,8 @@
                 <Property Name="electrostatic_ID" Type="Edm.Guid" />
                 <Property Name="composition_ID" Type="Edm.Guid" />
                 <Property Name="dryingCondition_ID" Type="Edm.Guid" />
+                <Property Name="isArchive" Type="Edm.Boolean" DefaultValue="false" />
+                <Property Name="defectId" Type="Edm.String" MaxLength="10" />
                 <NavigationProperty Name="defectDetail" Type="DefectService.DefectDetails" Partner="versions">
                     <ReferentialConstraint Property="defectDetail_ID" ReferencedProperty="ID" />
                 </NavigationProperty>
@@ -473,13 +476,15 @@
                 <ReturnType Type="DefectService.DefectDetails" />
             </Action>
             <EntityContainer Name="EntityContainer">
+                <EntitySet Name="ProductsFor2Wheeler" EntityType="DefectService.ProductsFor2Wheeler">
+                    <NavigationPropertyBinding Path="defectDetails" Target="DefectDetails" />
+                </EntitySet>
+                <EntitySet Name="ProductsFor4Wheeler" EntityType="DefectService.ProductsFor4Wheeler">
+                    <NavigationPropertyBinding Path="defectDetails" Target="DefectDetails" />
+                </EntitySet>
                 <EntitySet Name="Products" EntityType="DefectService.Products">
                     <NavigationPropertyBinding Path="defectDetails" Target="DefectDetails" />
                 </EntitySet>
-                <EntitySet Name="ChartDataEntities" EntityType="DefectService.ChartDataEntities">
-                    <NavigationPropertyBinding Path="association" Target="CreateAssociations" />
-                </EntitySet>
-                <EntitySet Name="CreateAssociations" EntityType="DefectService.CreateAssociations" />
                 <EntitySet Name="DefectDetails" EntityType="DefectService.DefectDetails">
                     <NavigationPropertyBinding Path="product" Target="Products" />
                     <NavigationPropertyBinding Path="mainCustomer" Target="MainCustomers" />
@@ -541,6 +546,164 @@
                 <EntitySet Name="MstrCompositions" EntityType="DefectService.MstrCompositions" />
                 <EntitySet Name="MstrDryingConditions" EntityType="DefectService.MstrDryingConditions" />
             </EntityContainer>
+            <Annotations Target="DefectService.ProductsFor2Wheeler/ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor2Wheeler/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor2Wheeler/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor2Wheeler/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor2Wheeler/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor2Wheeler/code">
+                <Annotation Term="Common.Label">
+                    <String>Product Code</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor2Wheeler/name">
+                <Annotation Term="Common.Label">
+                    <String>Product Name</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor2Wheeler/mainCustomer">
+                <Annotation Term="Common.Label">
+                    <String>Main Customer</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor4Wheeler/ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor4Wheeler/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor4Wheeler/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor4Wheeler/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor4Wheeler/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor4Wheeler/code">
+                <Annotation Term="Common.Label">
+                    <String>Product Code</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor4Wheeler/name">
+                <Annotation Term="Common.Label">
+                    <String>Product Name</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.ProductsFor4Wheeler/mainCustomer">
+                <Annotation Term="Common.Label">
+                    <String>Main Customer</String>
+                </Annotation>
+            </Annotations>
             <Annotations Target="DefectService.Products">
                 <Annotation Term="UI.HeaderInfo">
                     <Record Type="UI.HeaderInfoType">
@@ -673,123 +836,6 @@
                     <String>Product Name</String>
                 </Annotation>
             </Annotations>
-            <Annotations Target="DefectService.ChartDataEntities/createdAt">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Created On</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ChartDataEntities/createdBy">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Created By</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ChartDataEntities/modifiedAt">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Changed On</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ChartDataEntities/modifiedBy">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Changed By</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ChartDataEntities/ID">
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.CreateAssociations/createdAt">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Created On</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.CreateAssociations/createdBy">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Created By</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.CreateAssociations/modifiedAt">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Changed On</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.CreateAssociations/modifiedBy">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Changed By</String>
-                </Annotation>
-            </Annotations>
             <Annotations Target="DefectService.DefectDetails">
                 <Annotation Term="UI.HeaderInfo">
                     <Record Type="UI.HeaderInfoType">
@@ -809,7 +855,7 @@
                         <PropertyValue Property="Description">
                             <Record Type="UI.DataField">
                                 <PropertyValue Property="Value">
-                                    <Path>category_ID</Path>
+                                    <Path>defectId</Path>
                                 </PropertyValue>
                             </Record>
                         </PropertyValue>
@@ -824,6 +870,14 @@
                 </Annotation>
                 <Annotation Term="UI.LineItem">
                     <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>defectId</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Defect ID</String>
+                            </PropertyValue>
+                        </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value">
                                 <Path>title</Path>
@@ -947,14 +1001,6 @@
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
                             <Collection>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value">
-                                        <Path>ID</Path>
-                                    </PropertyValue>
-                                    <PropertyValue Property="Label">
-                                        <String>ID</String>
-                                    </PropertyValue>
-                                </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value">
                                         <Path>defectType_ID</Path>
@@ -2278,6 +2324,17 @@
                     <String>MstrDryingConditions</String>
                 </Annotation>
             </Annotations>
+            <Annotations Target="DefectService.DefectDetails/defectId">
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Defect ID</String>
+                </Annotation>
+                <Annotation Term="Common.FieldControl">
+                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
+                </Annotation>
+            </Annotations>
             <Annotations Target="DefectService.DefectDetails/IsActiveEntity">
                 <Annotation Term="UI.Hidden">
                     <Bool>true</Bool>
@@ -2328,7 +2385,7 @@
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value">
-                                <Path>createdAt</Path>
+                                <Path>modifiedAt</Path>
                             </PropertyValue>
                             <PropertyValue Property="Label">
                                 <String>Created At</String>
@@ -2336,7 +2393,7 @@
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value">
-                                <Path>createdBy</Path>
+                                <Path>modifiedBy</Path>
                             </PropertyValue>
                             <PropertyValue Property="Label">
                                 <String>Created By</String>
