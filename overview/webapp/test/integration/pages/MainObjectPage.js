@@ -10,8 +10,8 @@ sap.ui.define(['sap/fe/test/ObjectPage'], function(ObjectPage) {
     return new ObjectPage(
         {
             appId: 'com.knpl.overview', // MANDATORY: Compare sap.app.id in manifest.json
-            componentId: 'DefectChartObjectPage', // MANDATORY: Compare sap.ui5.routing.targets.id in manifest.json
-            entitySet: 'DefectChart' // MANDATORY: Compare entityset in manifest.json
+            componentId: 'ChartDefectsObjectPage', // MANDATORY: Compare sap.ui5.routing.targets.id in manifest.json
+            entitySet: 'ChartDefects' // MANDATORY: Compare entityset in manifest.json
         },
         AdditionalCustomObjectPageDefinition
     );

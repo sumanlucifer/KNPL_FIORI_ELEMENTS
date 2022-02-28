@@ -1,22 +1,22 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Wed Feb 09 2022 13:49:08 GMT+0000 (Coordinated Universal Time)|
-|**App Generator**<br>@sap/generator-fiori|
-|**App Generator Version**<br>1.4.7|
+|**Generation Date and Time**<br>Fri Feb 25 2022 05:54:56 GMT+0000 (Coordinated Universal Time)|
+|**App Generator**<br>@sap/generator-fiori-elements|
+|**App Generator Version**<br>1.5.0|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>Analytical List Page V4|
 |**Service Type**<br>OData Url|
 |**Service URL**<br>https://kansai-nerolac-paints-ltd-knpl-dev-projects-tss-knpl-tss987df96.cfapps.ap11.hana.ondemand.com/odata/v4/ChartService/
 |**Module Name**<br>overview|
-|**Application Title**<br>Overview|
+|**Application Title**<br>overview|
 |**Namespace**<br>com.knpl|
 |**UI5 Theme**<br>sap_fiori_3|
-|**UI5 Version**<br>Latest|
+|**UI5 Version**<br>1.98.0|
 |**Enable Code Assist Libraries**<br>False|
 |**Add Eslint configuration**<br>False|
 |**Enable Telemetry**<br>True|
-|**Main Entity**<br>DefectChart|
+|**Main Entity**<br>ChartDefects|
 
 ## overview
 

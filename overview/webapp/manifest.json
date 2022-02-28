@@ -42,8 +42,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Overview",
-                    "action": "Display",
+                    "semanticObject": "OVERVIEW",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
                     "icon": ""
@@ -73,7 +73,7 @@
             "css": []
         },
         "dependencies": {
-            "minUI5Version": "1.97.2",
+            "minUI5Version": "1.98.0",
             "libs": {
                 "sap.ui.core": {},
                 "sap.fe.templates": {}
@@ -103,36 +103,34 @@
             "routes": [
                 {
                     "pattern": ":?query:",
-                    "name": "DefectChartList",
-                    "target": "DefectChartList"
-                },
-                {
-                    "pattern": "DefectChart({key}):?query:",
-                    "name": "DefectChartObjectPage",
-                    "target": "DefectChartObjectPage"
+                    "name": "ChartDefectsList",
+                    "target": "ChartDefectsList"
                 }
             ],
             "targets": {
-                "DefectChartList": {
+                "ChartDefectsList": {
                     "type": "Component",
-                    "id": "DefectChartList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
-                            "entitySet": "DefectChart",
-                            "variantManagement": "Page",
-                            "navigation": {
-                                "DefectChart": {
-                                    "detail": {
-                                        "route": "DefectChartObjectPage"
-                                    }
-                                }
-                            },
+                            "entitySet": "ChartDefects",
+                            "navigation": {},
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "tableSettings": {
                                         "type": "AnalyticalTable",
                                         "selectionMode": "Auto"
+                                    },
+                                    "columns": {
+                                        "DataField::defectId": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::categoryName": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::productName": {
+                                            "width": "100%"
+                                        }
                                     }
                                 }
                             },
@@ -152,20 +150,11 @@
                                         "defaultPath": "both"
                                     }
                                 ]
-                            }
+                            },
+                            "initialLoad": "Enabled"
                         }
-                    }
-                },
-                "DefectChartObjectPage": {
-                    "type": "Component",
-                    "id": "DefectChartObjectPage",
-                    "name": "sap.fe.templates.ObjectPage",
-                    "options": {
-                        "settings": {
-                            "editableHeaderContent": false,
-                            "entitySet": "DefectChart"
-                        }
-                    }
+                    },
+                    "id": "ChartDefectsList"
                 }
             }
         },

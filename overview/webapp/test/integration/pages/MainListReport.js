@@ -9,8 +9,8 @@ sap.ui.define(['sap/fe/test/ListReport'], function(ListReport) {
     return new ListReport(
         {
             appId: 'com.knpl.overview',
-            componentId: 'DefectChartList',
-            entitySet: 'DefectChart'
+            componentId: 'ChartDefectsList',
+            entitySet: 'ChartDefects'
         },
         AdditionalCustomListReportDefinition
     );
