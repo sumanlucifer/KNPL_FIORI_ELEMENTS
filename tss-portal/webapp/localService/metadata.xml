@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
     <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
         <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities" />
     </edmx:Reference>
@@ -89,7 +89,7 @@
                 <Property Name="composition_ID" Type="Edm.Guid" />
                 <Property Name="dryingCondition_ID" Type="Edm.Guid" />
                 <Property Name="isArchive" Type="Edm.Boolean" DefaultValue="false" />
-                <Property Name="defectId" Type="Edm.String" MaxLength="10" />
+                <Property Name="defectId" Type="Edm.String" MaxLength="15" />
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
@@ -183,7 +183,7 @@
                 <Property Name="composition_ID" Type="Edm.Guid" />
                 <Property Name="dryingCondition_ID" Type="Edm.Guid" />
                 <Property Name="isArchive" Type="Edm.Boolean" DefaultValue="false" />
-                <Property Name="defectId" Type="Edm.String" MaxLength="10" />
+                <Property Name="defectId" Type="Edm.String" MaxLength="15" />
                 <NavigationProperty Name="defectDetail" Type="DefectService.DefectDetails" Partner="versions">
                     <ReferentialConstraint Property="defectDetail_ID" ReferencedProperty="ID" />
                 </NavigationProperty>
@@ -704,58 +704,6 @@
                     <String>Main Customer</String>
                 </Annotation>
             </Annotations>
-            <Annotations Target="DefectService.Products">
-                <Annotation Term="UI.HeaderInfo">
-                    <Record Type="UI.HeaderInfoType">
-                        <PropertyValue Property="TypeName">
-                            <String>Product</String>
-                        </PropertyValue>
-                        <PropertyValue Property="TypeNamePlural">
-                            <String>Products</String>
-                        </PropertyValue>
-                        <PropertyValue Property="Title">
-                            <Record Type="UI.DataField">
-                                <PropertyValue Property="Value">
-                                    <Path>name</Path>
-                                </PropertyValue>
-                            </Record>
-                        </PropertyValue>
-                        <PropertyValue Property="Description">
-                            <Record Type="UI.DataField">
-                                <PropertyValue Property="Value">
-                                    <Path>code</Path>
-                                </PropertyValue>
-                            </Record>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="UI.SelectionFields">
-                    <Collection>
-                        <PropertyPath>name</PropertyPath>
-                        <PropertyPath>code</PropertyPath>
-                    </Collection>
-                </Annotation>
-                <Annotation Term="UI.LineItem">
-                    <Collection>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value">
-                                <Path>name</Path>
-                            </PropertyValue>
-                            <PropertyValue Property="Label">
-                                <String>Product Name</String>
-                            </PropertyValue>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value">
-                                <Path>code</Path>
-                            </PropertyValue>
-                            <PropertyValue Property="Label">
-                                <String>Product Code</String>
-                            </PropertyValue>
-                        </Record>
-                    </Collection>
-                </Annotation>
-            </Annotations>
             <Annotations Target="DefectService.Products/createdAt">
                 <Annotation Term="UI.HiddenFilter">
                     <Bool>true</Bool>
@@ -896,7 +844,7 @@
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value">
-                                <Path>product_ID</Path>
+                                <Path>product/name</Path>
                             </PropertyValue>
                             <PropertyValue Property="Label">
                                 <String>Product Name</String>
@@ -2325,14 +2273,8 @@
                 </Annotation>
             </Annotations>
             <Annotations Target="DefectService.DefectDetails/defectId">
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Defect ID</String>
-                </Annotation>
-                <Annotation Term="Common.FieldControl">
-                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
                 </Annotation>
             </Annotations>
             <Annotations Target="DefectService.DefectDetails/IsActiveEntity">
@@ -2388,7 +2330,7 @@
                                 <Path>modifiedAt</Path>
                             </PropertyValue>
                             <PropertyValue Property="Label">
-                                <String>Created At</String>
+                                <String>Modified At</String>
                             </PropertyValue>
                         </Record>
                         <Record Type="UI.DataField">
@@ -2396,7 +2338,7 @@
                                 <Path>modifiedBy</Path>
                             </PropertyValue>
                             <PropertyValue Property="Label">
-                                <String>Created By</String>
+                                <String>Modified By</String>
                             </PropertyValue>
                         </Record>
                     </Collection>

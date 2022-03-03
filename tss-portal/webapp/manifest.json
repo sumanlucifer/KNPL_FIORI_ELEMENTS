@@ -161,6 +161,7 @@
                         "settings": {
                             "entitySet": "DefectDetails",
                             "variantManagement": "None",
+                            "enhanceI18n": "i18n/customI18N.properties",
                             "navigation": {
                                 "DefectDetails": {
                                     "detail": {
@@ -213,7 +214,8 @@
                                         }
                                     },
                                     "tableSettings": {
-                                        "enableExport": false
+                                        "enableExport": false,
+                                        "type": "ResponsiveTable"
                                     }
                                 }
                             },
@@ -230,6 +232,7 @@
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
+                            "enhanceI18n": "i18n/customI18N.properties",
                             "entitySet": "DefectDetails",
                             "navigation": {
                                 "versions": {
