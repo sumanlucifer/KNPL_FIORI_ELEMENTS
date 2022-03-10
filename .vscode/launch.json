@@ -333,6 +333,160 @@
         "FIORI_TOOLS_UI5_URI": "https://ui5.sap.com",
         "FIORI_TOOLS_BACKEND_CONFIG": "[{\"path\":\"/odata\",\"url\":\"https://kansai-nerolac-paints-ltd-knpl-dev-projects-tss-knpl-tss987df96.cfapps.ap11.hana.ondemand.com\"}]"
       }
+    },
+    {
+      "name": "Start tss-portal",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/tss-portal",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html?sap-ui-xx-viewCache=false#comknpltssportal-tile"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/tss-portal\"}"
+      }
+    },
+    {
+      "name": "Start tss-portal Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/tss-portal",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html?sap-ui-xx-viewCache=false#comknpltssportal-tile"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/tss-portal\"}"
+      }
+    },
+    {
+      "name": "Start tss-portal Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/tss-portal",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html?sap-ui-xx-viewCache=false#comknpltssportal-tile"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/tss-portal\"}"
+      }
+    },
+    {
+      "name": "Start tss-portal",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/tss-portal",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html?sap-ui-xx-viewCache=false#comknpltssportal-tile"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/tss-portal\"}"
+      }
+    },
+    {
+      "name": "Start tss-portal Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/tss-portal",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html?sap-ui-xx-viewCache=false#comknpltssportal-tile"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/tss-portal\"}"
+      }
+    },
+    {
+      "name": "Start tss-portal Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/tss-portal",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html?sap-ui-xx-viewCache=false#comknpltssportal-tile"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/tss-portal\"}"
+      }
     }
   ],
   "compounds": [],

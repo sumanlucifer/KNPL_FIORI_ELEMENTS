@@ -1,9 +1,9 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Wed Feb 16 2022 06:39:26 GMT+0000 (Coordinated Universal Time)|
-|**App Generator**<br>@sap/generator-fiori|
-|**App Generator Version**<br>1.4.7|
+|**Generation Date and Time**<br>Wed Mar 09 2022 05:09:36 GMT+0000 (Coordinated Universal Time)|
+|**App Generator**<br>@sap/generator-fiori-elements|
+|**App Generator Version**<br>1.5.1|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>List Report Object Page V4|
 |**Service Type**<br>OData Url|
@@ -12,7 +12,7 @@
 |**Application Title**<br>TSS Portal|
 |**Namespace**<br>com.knpl|
 |**UI5 Theme**<br>sap_fiori_3|
-|**UI5 Version**<br>Latest|
+|**UI5 Version**<br>1.98.0|
 |**Enable Code Assist Libraries**<br>False|
 |**Add Eslint configuration**<br>False|
 |**Enable Telemetry**<br>True|

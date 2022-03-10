@@ -1,6 +1,7 @@
 sap.ui.define([
     "sap/ui/core/Component",
-], function (Component) {
+    "sap/m/MessageToast",
+], function (Component, MessageToast) {
     "use strict";
     return {
 
@@ -48,38 +49,44 @@ sap.ui.define([
             this.importDialog.destroy();
             this.importDialog = null;
         },
+        onUploadFileTypeMis: function () {
+
+            MessageToast.show("Kindly upload a file of type CSV,Not allowed to upload xlsx, pdf, jpeg");
+
+
+        },
 
         handleUploadPress: function (oEvent) {
             //perform upload
             var oResourceBundle = this.oListView.getModel("i18n").getResourceBundle();
             var oFileUploader = sap.ui.getCore().byId("fupImport");
-     
+
             //check file has been entered
             var sFile = oFileUploader.getValue();
             if (!sFile) {
                 sap.m.MessageToast.show(oResourceBundle.getText("fileSelectionValidationMsg"));
                 return;
             }
-            else{
+            else {
                 //Add header parameters to file uploader.
                 var oDataModel = this.oListView.getModel("fileService");
                 // var oFile = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
-                
+
                 /* var sTokenForUpload = oDataModel.getSecurityToken();
                 var oHeaderParameter = new sap.ui.unified.FileUploaderParameter({
                     name: "X-CSRF-Token",
                     value: sTokenForUpload
                 }); */
-        
+
                 var oHeaderSlug = new sap.ui.unified.FileUploaderParameter({
                     name: "SLUG",
                     value: sFile
                 });
-        
+
                 //Header parameter need to be removed then added.
                 // oFileUploader.removeAllHeaderParameters();
                 // oFileUploader.addHeaderParameter(oHeaderParameter);
-        
+
                 oFileUploader.addHeaderParameter(oHeaderSlug);
 
                 // HTTP request Parameter changed from default .i.e. POST to PUT
@@ -90,7 +97,7 @@ sap.ui.define([
                 oFileUploader.setUploadUrl(sUrl);
                 oFileUploader.upload();
                 sap.ui.core.BusyIndicator.show(0);
-                this.importDialog.close(); 
+                this.importDialog.close();
             }
         }
     }

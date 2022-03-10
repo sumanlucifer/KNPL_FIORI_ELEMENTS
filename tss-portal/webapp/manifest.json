@@ -144,11 +144,11 @@
                 },
                 {
                     "pattern": "DefectDetails({key})/versions({key2}):?query:",
-                    "name": "DefectDetailVersionsObjectPage_versions",
+                    "name": "DefectDetailVersionsObjectPage",
                     "target": [
                         "DefectDetailsList",
                         "DefectDetailsObjectPage",
-                        "DefectDetailVersionsObjectPage_versions"
+                        "DefectDetailVersionsObjectPage"
                     ]
                 }
             ],
@@ -185,13 +185,10 @@
                                         }
                                     },
                                     "columns": {
-                                        "DataField::product::code": {
-                                            "width": "100%"
-                                        },
-                                        "DataField::product::vehicleType::name": {
-                                            "width": "100%"
-                                        },
                                         "DataField::product::mainCustomer::name": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::defectId": {
                                             "width": "100%"
                                         },
                                         "DataField::title": {
@@ -200,7 +197,7 @@
                                         "DataField::defectType::name": {
                                             "width": "100%"
                                         },
-                                        "DataField::product_ID": {
+                                        "DataField::product::name": {
                                             "width": "100%"
                                         },
                                         "DataField::vehicleType::name": {
@@ -208,14 +205,10 @@
                                         },
                                         "DataField::mainCustomer::name": {
                                             "width": "100%"
-                                        },
-                                        "DataField::defectId": {
-                                            "width": "100%"
                                         }
                                     },
                                     "tableSettings": {
-                                        "enableExport": false,
-                                        "type": "ResponsiveTable"
+                                        "enableExport": false
                                     }
                                 }
                             },
@@ -237,7 +230,7 @@
                             "navigation": {
                                 "versions": {
                                     "detail": {
-                                        "route": "DefectDetailVersionsObjectPage_versions"
+                                        "route": "DefectDetailVersionsObjectPage"
                                     }
                                 }
                             },
@@ -245,40 +238,39 @@
                             "controlConfiguration": {
                                 "versions/@com.sap.vocabularies.UI.v1.LineItem#i18nversion1": {
                                     "columns": {
-                                        "DataField::version": {
-                                            "width": "100%"
-                                        },
                                         "DataField::createdBy": {
                                             "width": "100%"
                                         },
                                         "DataField::createdAt": {
                                             "width": "100%"
-                                        }
-                                    },
-                                    "tableSettings": {
-                                        "enableExport": false,
-                                        "personalization": {
-                                            "column": false,
-                                            "sort": false,
-                                            "filter": false
+                                        },
+                                        "DataField::version": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::modifiedAt": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::modifiedBy": {
+                                            "width": "100%"
                                         }
                                     }
                                 }
-                            }
+                            },
+                            "variantManagement": "None"
                         }
                     },
                     "controlAggregation": "midColumnPages",
                     "contextPattern": "/DefectDetails({key})"
                 },
-                "DefectDetailVersionsObjectPage_versions": {
+                "DefectDetailVersionsObjectPage": {
                     "type": "Component",
-                    "id": "DefectDetailVersionsObjectPage_versions",
+                    "id": "DefectDetailVersionsObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
                             "entitySet": "DefectDetailVersions",
                             "navigation": {},
-                            "sectionLayout": "Page"
+                            "variantManagement": "None"
                         }
                     },
                     "controlAggregation": "endColumnPages",

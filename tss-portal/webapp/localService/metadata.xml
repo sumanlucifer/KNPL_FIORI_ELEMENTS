@@ -19,10 +19,6 @@
                     <PropertyRef Name="ID" />
                 </Key>
                 <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
                 <Property Name="code" Type="Edm.String" MaxLength="120" />
                 <Property Name="name" Type="Edm.String" MaxLength="120" />
                 <Property Name="mainCustomer" Type="Edm.String" MaxLength="120" />
@@ -33,10 +29,6 @@
                     <PropertyRef Name="ID" />
                 </Key>
                 <Property Name="ID" Type="Edm.Guid" Nullable="false" />
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
                 <Property Name="code" Type="Edm.String" MaxLength="120" />
                 <Property Name="name" Type="Edm.String" MaxLength="120" />
                 <Property Name="mainCustomer" Type="Edm.String" MaxLength="120" />
@@ -46,11 +38,11 @@
                 <Key>
                     <PropertyRef Name="ID" />
                 </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
                 <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
                 <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
-                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
                 <Property Name="code" Type="Edm.String" MaxLength="120" />
                 <Property Name="name" Type="Edm.String" MaxLength="120" />
                 <NavigationProperty Name="defectDetails" Type="Collection(DefectService.DefectDetails)" />
@@ -66,8 +58,8 @@
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
                 <Property Name="ID" Type="Edm.Guid" Nullable="false" />
                 <Property Name="product_ID" Type="Edm.Guid" />
-                <Property Name="mainCustomer_ID" Type="Edm.Guid" />
                 <Property Name="vehicleType_ID" Type="Edm.Guid" />
+                <Property Name="mainCustomer_ID" Type="Edm.Guid" />
                 <Property Name="defectType_ID" Type="Edm.Guid" />
                 <Property Name="title" Type="Edm.String" MaxLength="120" />
                 <Property Name="outline" Type="Edm.String" MaxLength="500" />
@@ -96,11 +88,11 @@
                 <NavigationProperty Name="product" Type="DefectService.Products">
                     <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
                 </NavigationProperty>
-                <NavigationProperty Name="mainCustomer" Type="DefectService.MainCustomers">
-                    <ReferentialConstraint Property="mainCustomer_ID" ReferencedProperty="ID" />
-                </NavigationProperty>
                 <NavigationProperty Name="vehicleType" Type="DefectService.MstrVehicleTypes">
                     <ReferentialConstraint Property="vehicleType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="mainCustomer" Type="DefectService.MainCustomers">
+                    <ReferentialConstraint Property="mainCustomer_ID" ReferencedProperty="ID" />
                 </NavigationProperty>
                 <NavigationProperty Name="defectType" Type="DefectService.MstrDefectTypes">
                     <ReferentialConstraint Property="defectType_ID" ReferencedProperty="ID" />
@@ -160,8 +152,8 @@
                 <Property Name="defectDetail_ID" Type="Edm.Guid" />
                 <Property Name="version" Type="Edm.Int32" />
                 <Property Name="product_ID" Type="Edm.Guid" />
-                <Property Name="mainCustomer_ID" Type="Edm.Guid" />
                 <Property Name="vehicleType_ID" Type="Edm.Guid" />
+                <Property Name="mainCustomer_ID" Type="Edm.Guid" />
                 <Property Name="defectType_ID" Type="Edm.Guid" />
                 <Property Name="title" Type="Edm.String" MaxLength="120" />
                 <Property Name="outline" Type="Edm.String" MaxLength="500" />
@@ -190,11 +182,11 @@
                 <NavigationProperty Name="product" Type="DefectService.Products">
                     <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
                 </NavigationProperty>
-                <NavigationProperty Name="mainCustomer" Type="DefectService.MainCustomers">
-                    <ReferentialConstraint Property="mainCustomer_ID" ReferencedProperty="ID" />
-                </NavigationProperty>
                 <NavigationProperty Name="vehicleType" Type="DefectService.MstrVehicleTypes">
                     <ReferentialConstraint Property="vehicleType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="mainCustomer" Type="DefectService.MainCustomers">
+                    <ReferentialConstraint Property="mainCustomer_ID" ReferencedProperty="ID" />
                 </NavigationProperty>
                 <NavigationProperty Name="defectType" Type="DefectService.MstrDefectTypes">
                     <ReferentialConstraint Property="defectType_ID" ReferencedProperty="ID" />
@@ -249,6 +241,10 @@
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
                 <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="vehicleType_ID" Type="Edm.Guid" />
+                <NavigationProperty Name="vehicleType" Type="DefectService.MstrVehicleTypes">
+                    <ReferentialConstraint Property="vehicleType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
             </EntityType>
             <EntityType Name="MstrUserTypes">
                 <Key>
@@ -304,6 +300,7 @@
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
                 <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <NavigationProperty Name="subCategories" Type="Collection(DefectService.MstrSubCategories)" Partner="category" />
             </EntityType>
             <EntityType Name="MstrSubCategories">
                 <Key>
@@ -315,6 +312,10 @@
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
                 <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <Property Name="category_ID" Type="Edm.Guid" />
+                <NavigationProperty Name="category" Type="DefectService.MstrCategories" Partner="subCategories">
+                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
             </EntityType>
             <EntityType Name="MstrJVs">
                 <Key>
@@ -487,8 +488,8 @@
                 </EntitySet>
                 <EntitySet Name="DefectDetails" EntityType="DefectService.DefectDetails">
                     <NavigationPropertyBinding Path="product" Target="Products" />
-                    <NavigationPropertyBinding Path="mainCustomer" Target="MainCustomers" />
                     <NavigationPropertyBinding Path="vehicleType" Target="MstrVehicleTypes" />
+                    <NavigationPropertyBinding Path="mainCustomer" Target="MainCustomers" />
                     <NavigationPropertyBinding Path="defectType" Target="MstrDefectTypes" />
                     <NavigationPropertyBinding Path="category" Target="MstrCategories" />
                     <NavigationPropertyBinding Path="subCategory" Target="MstrSubCategories" />
@@ -509,8 +510,8 @@
                 <EntitySet Name="DefectDetailVersions" EntityType="DefectService.DefectDetailVersions">
                     <NavigationPropertyBinding Path="defectDetail" Target="DefectDetails" />
                     <NavigationPropertyBinding Path="product" Target="Products" />
-                    <NavigationPropertyBinding Path="mainCustomer" Target="MainCustomers" />
                     <NavigationPropertyBinding Path="vehicleType" Target="MstrVehicleTypes" />
+                    <NavigationPropertyBinding Path="mainCustomer" Target="MainCustomers" />
                     <NavigationPropertyBinding Path="defectType" Target="MstrDefectTypes" />
                     <NavigationPropertyBinding Path="category" Target="MstrCategories" />
                     <NavigationPropertyBinding Path="subCategory" Target="MstrSubCategories" />
@@ -526,13 +527,19 @@
                     <NavigationPropertyBinding Path="composition" Target="MstrCompositions" />
                     <NavigationPropertyBinding Path="dryingCondition" Target="MstrDryingConditions" />
                 </EntitySet>
-                <EntitySet Name="MainCustomers" EntityType="DefectService.MainCustomers" />
+                <EntitySet Name="MainCustomers" EntityType="DefectService.MainCustomers">
+                    <NavigationPropertyBinding Path="vehicleType" Target="MstrVehicleTypes" />
+                </EntitySet>
                 <EntitySet Name="MstrUserTypes" EntityType="DefectService.MstrUserTypes" />
                 <EntitySet Name="MstrVehicleTypes" EntityType="DefectService.MstrVehicleTypes" />
                 <EntitySet Name="MstrDefectTypes" EntityType="DefectService.MstrDefectTypes" />
                 <EntitySet Name="MstrData" EntityType="DefectService.MstrData" />
-                <EntitySet Name="MstrCategories" EntityType="DefectService.MstrCategories" />
-                <EntitySet Name="MstrSubCategories" EntityType="DefectService.MstrSubCategories" />
+                <EntitySet Name="MstrCategories" EntityType="DefectService.MstrCategories">
+                    <NavigationPropertyBinding Path="subCategories" Target="MstrSubCategories" />
+                </EntitySet>
+                <EntitySet Name="MstrSubCategories" EntityType="DefectService.MstrSubCategories">
+                    <NavigationPropertyBinding Path="category" Target="MstrCategories" />
+                </EntitySet>
                 <EntitySet Name="MstrJVs" EntityType="DefectService.MstrJVs" />
                 <EntitySet Name="MstrDocumentCategories" EntityType="DefectService.MstrDocumentCategories" />
                 <EntitySet Name="MstrLayers" EntityType="DefectService.MstrLayers" />
@@ -546,70 +553,6 @@
                 <EntitySet Name="MstrCompositions" EntityType="DefectService.MstrCompositions" />
                 <EntitySet Name="MstrDryingConditions" EntityType="DefectService.MstrDryingConditions" />
             </EntityContainer>
-            <Annotations Target="DefectService.ProductsFor2Wheeler/ID">
-                <Annotation Term="UI.Hidden">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ProductsFor2Wheeler/createdAt">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Created On</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ProductsFor2Wheeler/createdBy">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Created By</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ProductsFor2Wheeler/modifiedAt">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Changed On</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ProductsFor2Wheeler/modifiedBy">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Changed By</String>
-                </Annotation>
-            </Annotations>
             <Annotations Target="DefectService.ProductsFor2Wheeler/code">
                 <Annotation Term="Common.Label">
                     <String>Product Code</String>
@@ -625,70 +568,6 @@
                     <String>Main Customer</String>
                 </Annotation>
             </Annotations>
-            <Annotations Target="DefectService.ProductsFor4Wheeler/ID">
-                <Annotation Term="UI.Hidden">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ProductsFor4Wheeler/createdAt">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Created On</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ProductsFor4Wheeler/createdBy">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Created By</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ProductsFor4Wheeler/modifiedAt">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Changed On</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.ProductsFor4Wheeler/modifiedBy">
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Computed">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>User's unique ID</String>
-                </Annotation>
-                <Annotation Term="Common.Label">
-                    <String>Changed By</String>
-                </Annotation>
-            </Annotations>
             <Annotations Target="DefectService.ProductsFor4Wheeler/code">
                 <Annotation Term="Common.Label">
                     <String>Product Code</String>
@@ -702,6 +581,14 @@
             <Annotations Target="DefectService.ProductsFor4Wheeler/mainCustomer">
                 <Annotation Term="Common.Label">
                     <String>Main Customer</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.Products/ID">
+                <Annotation Term="Common.Text">
+                    <Path>name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
                 </Annotation>
             </Annotations>
             <Annotations Target="DefectService.Products/createdAt">
@@ -758,20 +645,6 @@
                 </Annotation>
                 <Annotation Term="Common.Label">
                     <String>Changed By</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.Products/ID">
-                <Annotation Term="Common.Text">
-                    <Path>name</Path>
-                    <Annotation Term="UI.TextArrangement">
-                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
-                    </Annotation>
-                </Annotation>
-                <Annotation Term="UI.Hidden">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="UI.HiddenFilter">
-                    <Bool>true</Bool>
                 </Annotation>
             </Annotations>
             <Annotations Target="DefectService.Products/code">
@@ -941,6 +814,14 @@
                                         <String>Vehicle Type</String>
                                     </PropertyValue>
                                 </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>mainCustomer_ID</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Customer</String>
+                                    </PropertyValue>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -1035,14 +916,6 @@
                                     </PropertyValue>
                                     <PropertyValue Property="Label">
                                         <String>Issued By (JV)</String>
-                                    </PropertyValue>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value">
-                                        <Path>mainCustomer_ID</Path>
-                                    </PropertyValue>
-                                    <PropertyValue Property="Label">
-                                        <String>Customer</String>
                                     </PropertyValue>
                                 </Record>
                             </Collection>
@@ -1222,7 +1095,7 @@
             </Annotations>
             <Annotations Target="DefectService.DefectDetails/product">
                 <Annotation Term="Common.Label">
-                    <String>Products</String>
+                    <String>Product Name</String>
                 </Annotation>
                 <Annotation Term="Core.Description">
                     <String>Products</String>
@@ -1230,7 +1103,7 @@
             </Annotations>
             <Annotations Target="DefectService.DefectDetails/product_ID">
                 <Annotation Term="Common.Label">
-                    <String>Products</String>
+                    <String>Product Name</String>
                 </Annotation>
                 <Annotation Term="Common.Text">
                     <Path>product/name</Path>
@@ -1276,67 +1149,6 @@
                 </Annotation>
                 <Annotation Term="Core.Description">
                     <String>Products</String>
-                </Annotation>
-                <Annotation Term="Core.Immutable">
-                    <Bool>true</Bool>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.DefectDetails/mainCustomer">
-                <Annotation Term="Common.Label">
-                    <String>Main Customer</String>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>MainCustomers</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.DefectDetails/mainCustomer_ID">
-                <Annotation Term="Common.Label">
-                    <String>Main Customer</String>
-                </Annotation>
-                <Annotation Term="Common.Text">
-                    <Path>mainCustomer/name</Path>
-                    <Annotation Term="UI.TextArrangement">
-                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
-                    </Annotation>
-                </Annotation>
-                <Annotation Term="Common.ValueListWithFixedValues">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.ValueList">
-                    <Record Type="Common.ValueListType">
-                        <PropertyValue Property="Label">
-                            <String>MainCustomers</String>
-                        </PropertyValue>
-                        <PropertyValue Property="CollectionPath">
-                            <String>MainCustomers</String>
-                        </PropertyValue>
-                        <PropertyValue Property="Parameters">
-                            <Collection>
-                                <Record Type="Common.ValueListParameterInOut">
-                                    <PropertyValue Property="ValueListProperty">
-                                        <String>ID</String>
-                                    </PropertyValue>
-                                    <PropertyValue Property="LocalDataProperty">
-                                        <PropertyPath>mainCustomer_ID</PropertyPath>
-                                    </PropertyValue>
-                                </Record>
-                                <Record Type="Common.ValueListParameterOut">
-                                    <PropertyValue Property="ValueListProperty">
-                                        <String>name</String>
-                                    </PropertyValue>
-                                    <PropertyValue Property="LocalDataProperty">
-                                        <PropertyPath>mainCustomer/name</PropertyPath>
-                                    </PropertyValue>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Common.FieldControl">
-                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>MainCustomers</String>
                 </Annotation>
                 <Annotation Term="Core.Immutable">
                     <Bool>true</Bool>
@@ -1398,6 +1210,75 @@
                 </Annotation>
                 <Annotation Term="Core.Description">
                     <String>MstrVehicleTypes</String>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.DefectDetails/mainCustomer">
+                <Annotation Term="Common.Label">
+                    <String>Main Customer</String>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>MainCustomers</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.DefectDetails/mainCustomer_ID">
+                <Annotation Term="Common.Label">
+                    <String>Main Customer</String>
+                </Annotation>
+                <Annotation Term="Common.Text">
+                    <Path>mainCustomer/name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label">
+                            <String>MainCustomers</String>
+                        </PropertyValue>
+                        <PropertyValue Property="CollectionPath">
+                            <String>MainCustomers</String>
+                        </PropertyValue>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="ValueListProperty">
+                                        <String>ID</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="LocalDataProperty">
+                                        <PropertyPath>mainCustomer_ID</PropertyPath>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="Common.ValueListParameterOut">
+                                    <PropertyValue Property="ValueListProperty">
+                                        <String>name</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="LocalDataProperty">
+                                        <PropertyPath>mainCustomer/name</PropertyPath>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="Common.ValueListParameterIn">
+                                    <PropertyValue Property="LocalDataProperty">
+                                        <PropertyPath>vehicleType_ID</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="ValueListProperty">
+                                        <String>vehicleType_ID</String>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl">
+                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>MainCustomers</String>
                 </Annotation>
                 <Annotation Term="Core.Immutable">
                     <Bool>true</Bool>
@@ -1621,6 +1502,14 @@
                                     </PropertyValue>
                                     <PropertyValue Property="LocalDataProperty">
                                         <PropertyPath>subCategory/name</PropertyPath>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="Common.ValueListParameterIn">
+                                    <PropertyValue Property="LocalDataProperty">
+                                        <PropertyPath>category_ID</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="ValueListProperty">
+                                        <String>category_ID</String>
                                     </PropertyValue>
                                 </Record>
                             </Collection>
@@ -2327,18 +2216,18 @@
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value">
-                                <Path>modifiedAt</Path>
+                                <Path>createdAt</Path>
                             </PropertyValue>
                             <PropertyValue Property="Label">
-                                <String>Modified At</String>
+                                <String>Created At</String>
                             </PropertyValue>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value">
-                                <Path>modifiedBy</Path>
+                                <Path>createdBy</Path>
                             </PropertyValue>
                             <PropertyValue Property="Label">
-                                <String>Modified By</String>
+                                <String>Created By</String>
                             </PropertyValue>
                         </Record>
                     </Collection>
@@ -2757,61 +2646,6 @@
                     <String>Products</String>
                 </Annotation>
             </Annotations>
-            <Annotations Target="DefectService.DefectDetailVersions/mainCustomer">
-                <Annotation Term="Common.Label">
-                    <String>Customer</String>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>MainCustomers</String>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="DefectService.DefectDetailVersions/mainCustomer_ID">
-                <Annotation Term="Common.Label">
-                    <String>Customer</String>
-                </Annotation>
-                <Annotation Term="Common.Text">
-                    <Path>mainCustomer/name</Path>
-                    <Annotation Term="UI.TextArrangement">
-                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
-                    </Annotation>
-                </Annotation>
-                <Annotation Term="Common.ValueListWithFixedValues">
-                    <Bool>true</Bool>
-                </Annotation>
-                <Annotation Term="Common.ValueList">
-                    <Record Type="Common.ValueListType">
-                        <PropertyValue Property="Label">
-                            <String>MainCustomers</String>
-                        </PropertyValue>
-                        <PropertyValue Property="CollectionPath">
-                            <String>MainCustomers</String>
-                        </PropertyValue>
-                        <PropertyValue Property="Parameters">
-                            <Collection>
-                                <Record Type="Common.ValueListParameterInOut">
-                                    <PropertyValue Property="ValueListProperty">
-                                        <String>ID</String>
-                                    </PropertyValue>
-                                    <PropertyValue Property="LocalDataProperty">
-                                        <PropertyPath>mainCustomer_ID</PropertyPath>
-                                    </PropertyValue>
-                                </Record>
-                                <Record Type="Common.ValueListParameterOut">
-                                    <PropertyValue Property="ValueListProperty">
-                                        <String>name</String>
-                                    </PropertyValue>
-                                    <PropertyValue Property="LocalDataProperty">
-                                        <PropertyPath>mainCustomer/name</PropertyPath>
-                                    </PropertyValue>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Core.Description">
-                    <String>MainCustomers</String>
-                </Annotation>
-            </Annotations>
             <Annotations Target="DefectService.DefectDetailVersions/vehicleType">
                 <Annotation Term="Common.Label">
                     <String>Vehicle Type</String>
@@ -2865,6 +2699,61 @@
                 </Annotation>
                 <Annotation Term="Core.Description">
                     <String>MstrVehicleTypes</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.DefectDetailVersions/mainCustomer">
+                <Annotation Term="Common.Label">
+                    <String>Customer</String>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>MainCustomers</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.DefectDetailVersions/mainCustomer_ID">
+                <Annotation Term="Common.Label">
+                    <String>Customer</String>
+                </Annotation>
+                <Annotation Term="Common.Text">
+                    <Path>mainCustomer/name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label">
+                            <String>MainCustomers</String>
+                        </PropertyValue>
+                        <PropertyValue Property="CollectionPath">
+                            <String>MainCustomers</String>
+                        </PropertyValue>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="ValueListProperty">
+                                        <String>ID</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="LocalDataProperty">
+                                        <PropertyPath>mainCustomer_ID</PropertyPath>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="Common.ValueListParameterOut">
+                                    <PropertyValue Property="ValueListProperty">
+                                        <String>name</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="LocalDataProperty">
+                                        <PropertyPath>mainCustomer/name</PropertyPath>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>MainCustomers</String>
                 </Annotation>
             </Annotations>
             <Annotations Target="DefectService.DefectDetailVersions/defectType">

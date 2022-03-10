@@ -6,7 +6,7 @@
             <form:SimpleForm title="{i18n>fileImportDialogTitle}">
                 <form:content>
                     <u:FileUploader id="fupImport" name="myFileUpload" tooltip="{i18n>fileUploaderTooltip}" width="100%" uploadComplete="controller.handleUploadComplete" style="Emphasized"
-                        fileType="csv" placeholder="{i18n>fileUploaderPlaceholder}" sendXHR="true" useMultipart="false"/>
+                typeMissmatch="controller.onUploadFileTypeMis"  fileType="csv" placeholder="{i18n>fileUploaderPlaceholder}" sendXHR="true" useMultipart="false"/>
                 </form:content>
             </form:SimpleForm>
         </content>
