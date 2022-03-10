@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.knpl.tssportal",
+        "id": "com.knpl.tss.tssportal",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -175,12 +175,12 @@
                                         "Download": {
                                             "id": "downloadButton",
                                             "text": "Download ",
-                                            "press": "com.knpl.tssportal.ext.controller.ListReportCustomController.onDownloadPress"
+                                            "press": "com.knpl.tss.tssportal.ext.controller.ListReportCustomController.onDownloadPress"
                                         },
                                         "upload": {
                                             "id": "uploadButton",
                                             "text": "Upload",
-                                            "press": "com.knpl.tssportal.ext.controller.ListReportCustomController.onUploadPress",
+                                            "press": "com.knpl.tss.tssportal.ext.controller.ListReportCustomController.onUploadPress",
                                             "requiresSelection": false
                                         }
                                     },

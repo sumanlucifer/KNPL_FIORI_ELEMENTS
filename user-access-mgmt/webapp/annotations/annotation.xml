@@ -6,7 +6,7 @@
         <edmx:Include Namespace="CatalogService"/>
     </edmx:Reference>
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.knpl">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.knpl.tss">
             <Annotations Target="CatalogService.Users">
                 <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup1">
                     <Record Type="UI.FieldGroupType">

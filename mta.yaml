@@ -110,7 +110,7 @@ resources:
     service-name: knpl-tss-web-html5-app-host-service
     service-plan: app-host
 - name: uaa_knpl-tss-web
-  type: org.cloudfoundry.managed-service
+  type: org.cloudfoundry.existing-service
   parameters:
     path: ./xs-security.json
     service: xsuaa

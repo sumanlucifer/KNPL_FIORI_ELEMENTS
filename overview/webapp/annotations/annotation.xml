@@ -12,7 +12,7 @@
         <edmx:Include Namespace="ChartService" />
     </edmx:Reference>
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.knpl">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.knpl.tss">
             <Annotations Target="ChartService.ChartDefects">
                 <Annotation Term="UI.PresentationVariant">
                     <Record Type="UI.PresentationVariantType">

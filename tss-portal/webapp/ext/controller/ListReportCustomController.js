@@ -20,7 +20,7 @@ sap.ui.define([
             }
             if (!this.importDialog) {
                 //create instance of fragment
-                this.importDialog = sap.ui.xmlfragment("com.knpl.tssportal.ext.fragment.FileUploadImport", this);
+                this.importDialog = sap.ui.xmlfragment("com.knpl.tss.tssportal.ext.fragment.FileUploadImport", this);
             }
             this.importDialog.setModel(this.oListView.getModel("i18n"));
             this.oListView.addDependent(this.importDialog);

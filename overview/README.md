@@ -10,7 +10,7 @@
 |**Service URL**<br>https://kansai-nerolac-paints-ltd-knpl-dev-projects-tss-knpl-tss987df96.cfapps.ap11.hana.ondemand.com/odata/v4/ChartService/
 |**Module Name**<br>overview|
 |**Application Title**<br>overview|
-|**Namespace**<br>com.knpl|
+|**Namespace**<br>com.knpl.tss|
 |**UI5 Theme**<br>sap_fiori_3|
 |**UI5 Version**<br>1.98.0|
 |**Enable Code Assist Libraries**<br>False|

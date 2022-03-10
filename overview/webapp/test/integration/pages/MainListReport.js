@@ -8,7 +8,7 @@ sap.ui.define(['sap/fe/test/ListReport'], function(ListReport) {
 
     return new ListReport(
         {
-            appId: 'com.knpl.overview',
+            appId: 'com.knpl.tss.overview',
             componentId: 'ChartDefectsList',
             entitySet: 'ChartDefects'
         },

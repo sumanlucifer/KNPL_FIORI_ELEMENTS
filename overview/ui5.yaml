@@ -11,6 +11,7 @@ server:
       backend:
       - path: /odata
         url: https://kansai-nerolac-paints-ltd-knpl-dev-projects-tss-knpl-tss987df96.cfapps.ap11.hana.ondemand.com
+        destination: KNPL_TSS_API
       ui5:
         path: 
         - /resources
@@ -26,5 +27,5 @@ server:
   - name: fiori-tools-preview
     afterMiddleware: fiori-tools-appreload
     configuration:
-      component: com.knpl.overview
+      component: com.knpl.tss.overview
       ui5Theme: sap_fiori_3

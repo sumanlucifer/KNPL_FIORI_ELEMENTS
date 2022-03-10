@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.knpl.useraccessmgmt",
+        "id": "com.knpl.tss.useraccessmgmt",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {

@@ -6,7 +6,7 @@
         <edmx:Include Namespace="DefectService" />
     </edmx:Reference>
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.knpl">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.knpl.tss">
             <Annotations Target="DefectService.DefectDetailVersions">
                 <Annotation Term="UI.LineItem" Qualifier="i18nversion1">
                     <Collection>
