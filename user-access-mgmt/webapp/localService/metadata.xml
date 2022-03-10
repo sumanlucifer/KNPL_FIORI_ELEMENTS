@@ -1,0 +1,3707 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CatalogService">
+            <EntityType Name="Products">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="code" Type="Edm.String" MaxLength="10" />
+                <Property Name="name" Type="Edm.String" MaxLength="50" />
+                <Property Name="mainCustomer_ID" Type="Edm.Guid" />
+                <Property Name="vehicleType_ID" Type="Edm.Guid" />
+                <NavigationProperty Name="mainCustomer" Type="CatalogService.MainCustomers">
+                    <ReferentialConstraint Property="mainCustomer_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="vehicleType" Type="CatalogService.MstrVehicleTypes">
+                    <ReferentialConstraint Property="vehicleType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="defectDetails" Type="Collection(CatalogService.DefectDetails)" Partner="product" />
+            </EntityType>
+            <EntityType Name="ChartDataEntities">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="integerValue" Type="Edm.Int32" />
+                <Property Name="integerValueWithUoM" Type="Edm.Int32" />
+                <Property Name="forecastValue" Type="Edm.Int32" />
+                <Property Name="targetValue" Type="Edm.Int32" DefaultValue="30" />
+                <Property Name="dimensions" Type="Edm.Int32" />
+                <Property Name="criticality_code" Type="Edm.String" />
+            </EntityType>
+            <EntityType Name="Books">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="title" Type="Edm.String" />
+                <Property Name="stock" Type="Edm.Int32" />
+            </EntityType>
+            <EntityType Name="Users">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="userType_ID" Type="Edm.Guid" />
+                <Property Name="name" Type="Edm.String" MaxLength="30" />
+                <Property Name="email" Type="Edm.String" MaxLength="30" />
+                <NavigationProperty Name="userType" Type="CatalogService.MstrUserTypes">
+                    <ReferentialConstraint Property="userType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="DefectDetails">
+                <Key>
+                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="IsActiveEntity" />
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="product_ID" Type="Edm.Guid" />
+                <Property Name="defectType_ID" Type="Edm.Guid" />
+                <Property Name="title" Type="Edm.String" MaxLength="120" />
+                <Property Name="outline" Type="Edm.String" MaxLength="500" />
+                <Property Name="causeOfTrouble" Type="Edm.String" MaxLength="500" />
+                <Property Name="countermeasureTaken" Type="Edm.String" MaxLength="500" />
+                <Property Name="defectClassification_ID" Type="Edm.Guid" />
+                <Property Name="paintDetail_ID" Type="Edm.Guid" />
+                <Property Name="occurrenceStartDate" Type="Edm.Date" />
+                <Property Name="occurrenceEndDate" Type="Edm.Date" />
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <NavigationProperty Name="product" Type="CatalogService.Products" Partner="defectDetails">
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="defectType" Type="CatalogService.MstrDefectTypes">
+                    <ReferentialConstraint Property="defectType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="defectClassification" Type="CatalogService.DefectClassifications">
+                    <ReferentialConstraint Property="defectClassification_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="paintDetail" Type="CatalogService.PaintDetails">
+                    <ReferentialConstraint Property="paintDetail_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true" />
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.DefectDetails" />
+            </EntityType>
+            <EntityType Name="DefectClassifications">
+                <Key>
+                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="IsActiveEntity" />
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="category_ID" Type="Edm.Guid" />
+                <Property Name="subCategory_ID" Type="Edm.Guid" />
+                <Property Name="JV_ID" Type="Edm.Guid" />
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <NavigationProperty Name="category" Type="CatalogService.MstrCategories">
+                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="subCategory" Type="CatalogService.MstrSubCategories">
+                    <ReferentialConstraint Property="subCategory_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="JV" Type="CatalogService.MstrJVs">
+                    <ReferentialConstraint Property="JV_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true" />
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.DefectClassifications" />
+            </EntityType>
+            <EntityType Name="PaintDetails">
+                <Key>
+                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="IsActiveEntity" />
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="layer_ID" Type="Edm.Guid" />
+                <Property Name="targetSubstrate_ID" Type="Edm.Guid" />
+                <Property Name="substrateMaterial_ID" Type="Edm.Guid" />
+                <Property Name="paintType_ID" Type="Edm.Guid" />
+                <Property Name="crossLinkType_ID" Type="Edm.Guid" />
+                <Property Name="exteriorInterior_ID" Type="Edm.Guid" />
+                <Property Name="atomization_ID" Type="Edm.Guid" />
+                <Property Name="electrostatic_ID" Type="Edm.Guid" />
+                <Property Name="composition_ID" Type="Edm.Guid" />
+                <Property Name="dryingCondition_ID" Type="Edm.Guid" />
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <NavigationProperty Name="layer" Type="CatalogService.MstrLayers">
+                    <ReferentialConstraint Property="layer_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="targetSubstrate" Type="CatalogService.MstrTargetSubstrates">
+                    <ReferentialConstraint Property="targetSubstrate_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="substrateMaterial" Type="CatalogService.MstrSubstrateMaterials">
+                    <ReferentialConstraint Property="substrateMaterial_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="paintType" Type="CatalogService.MstrPaintTypes">
+                    <ReferentialConstraint Property="paintType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="crossLinkType" Type="CatalogService.MstrCrosslinkTypes">
+                    <ReferentialConstraint Property="crossLinkType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="exteriorInterior" Type="CatalogService.MstrExteriorInteriors">
+                    <ReferentialConstraint Property="exteriorInterior_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="atomization" Type="CatalogService.MstrAtomizations">
+                    <ReferentialConstraint Property="atomization_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="electrostatic" Type="CatalogService.MstrElectrostatics">
+                    <ReferentialConstraint Property="electrostatic_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="composition" Type="CatalogService.MstrCompositions">
+                    <ReferentialConstraint Property="composition_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="dryingCondition" Type="CatalogService.MstrDryingConditions">
+                    <ReferentialConstraint Property="dryingCondition_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true" />
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.PaintDetails" />
+            </EntityType>
+            <EntityType Name="DefectDetailHistories">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="product_ID" Type="Edm.Guid" />
+                <Property Name="defectType_ID" Type="Edm.Guid" />
+                <Property Name="title" Type="Edm.String" MaxLength="120" />
+                <Property Name="outline" Type="Edm.String" MaxLength="500" />
+                <Property Name="causeOfTrouble" Type="Edm.String" MaxLength="500" />
+                <Property Name="countermeasureTaken" Type="Edm.String" MaxLength="500" />
+                <Property Name="defectClassificationHistory_ID" Type="Edm.Guid" />
+                <Property Name="paintDetailHistory_ID" Type="Edm.Guid" />
+                <Property Name="occurrenceStartDate" Type="Edm.Date" />
+                <Property Name="occurrenceEndDate" Type="Edm.Date" />
+                <NavigationProperty Name="product" Type="CatalogService.Products">
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="defectType" Type="CatalogService.MstrDefectTypes">
+                    <ReferentialConstraint Property="defectType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="defectClassificationHistory" Type="CatalogService.DefectClassificationHistories">
+                    <ReferentialConstraint Property="defectClassificationHistory_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="paintDetailHistory" Type="CatalogService.PaintDetailHistories">
+                    <ReferentialConstraint Property="paintDetailHistory_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="DefectClassificationHistories">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="category_ID" Type="Edm.Guid" />
+                <Property Name="subCategory_ID" Type="Edm.Guid" />
+                <Property Name="JV_ID" Type="Edm.Guid" />
+                <NavigationProperty Name="category" Type="CatalogService.MstrCategories">
+                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="subCategory" Type="CatalogService.MstrSubCategories">
+                    <ReferentialConstraint Property="subCategory_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="JV" Type="CatalogService.MstrJVs">
+                    <ReferentialConstraint Property="JV_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="PaintDetailHistories">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="layer_ID" Type="Edm.Guid" />
+                <Property Name="targetSubstrate_ID" Type="Edm.Guid" />
+                <Property Name="substrateMaterial_ID" Type="Edm.Guid" />
+                <Property Name="paintType_ID" Type="Edm.Guid" />
+                <Property Name="crossLinkType_ID" Type="Edm.Guid" />
+                <Property Name="exteriorInterior_ID" Type="Edm.Guid" />
+                <Property Name="atomization_ID" Type="Edm.Guid" />
+                <Property Name="electrostatic_ID" Type="Edm.Guid" />
+                <Property Name="composition_ID" Type="Edm.Guid" />
+                <Property Name="dryingCondition_ID" Type="Edm.Guid" />
+                <NavigationProperty Name="layer" Type="CatalogService.MstrLayers">
+                    <ReferentialConstraint Property="layer_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="targetSubstrate" Type="CatalogService.MstrTargetSubstrates">
+                    <ReferentialConstraint Property="targetSubstrate_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="substrateMaterial" Type="CatalogService.MstrSubstrateMaterials">
+                    <ReferentialConstraint Property="substrateMaterial_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="paintType" Type="CatalogService.MstrPaintTypes">
+                    <ReferentialConstraint Property="paintType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="crossLinkType" Type="CatalogService.MstrCrosslinkTypes">
+                    <ReferentialConstraint Property="crossLinkType_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="exteriorInterior" Type="CatalogService.MstrExteriorInteriors">
+                    <ReferentialConstraint Property="exteriorInterior_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="atomization" Type="CatalogService.MstrAtomizations">
+                    <ReferentialConstraint Property="atomization_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="electrostatic" Type="CatalogService.MstrElectrostatics">
+                    <ReferentialConstraint Property="electrostatic_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="composition" Type="CatalogService.MstrCompositions">
+                    <ReferentialConstraint Property="composition_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="dryingCondition" Type="CatalogService.MstrDryingConditions">
+                    <ReferentialConstraint Property="dryingCondition_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MainCustomers">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrUserTypes">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="60" />
+            </EntityType>
+            <EntityType Name="MstrVehicleTypes">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrDefectTypes">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrData">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrCategories">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrSubCategories">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrJVs">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrDocumentCategories">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrLayers">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrTargetSubstrates">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrSubstrateMaterials">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrPaintTypes">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrCrosslinkTypes">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrExteriorInteriors">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrAtomizations">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrElectrostatics">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrCompositions">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="MstrDryingConditions">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID" />
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256" />
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean" />
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256" />
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256" />
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean" />
+            </EntityType>
+            <Action Name="draftPrepare" EntitySetPath="in" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.DefectDetails" />
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+                <ReturnType Type="CatalogService.DefectDetails" />
+            </Action>
+            <Action Name="draftPrepare" EntitySetPath="in" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.DefectClassifications" />
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+                <ReturnType Type="CatalogService.DefectClassifications" />
+            </Action>
+            <Action Name="draftPrepare" EntitySetPath="in" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.PaintDetails" />
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+                <ReturnType Type="CatalogService.PaintDetails" />
+            </Action>
+            <Action Name="draftActivate" EntitySetPath="in" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.DefectDetails" />
+                <ReturnType Type="CatalogService.DefectDetails" />
+            </Action>
+            <Action Name="draftActivate" EntitySetPath="in" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.DefectClassifications" />
+                <ReturnType Type="CatalogService.DefectClassifications" />
+            </Action>
+            <Action Name="draftActivate" EntitySetPath="in" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.PaintDetails" />
+                <ReturnType Type="CatalogService.PaintDetails" />
+            </Action>
+            <Action Name="draftEdit" EntitySetPath="in" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.DefectDetails" />
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean" />
+                <ReturnType Type="CatalogService.DefectDetails" />
+            </Action>
+            <Action Name="draftEdit" EntitySetPath="in" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.DefectClassifications" />
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean" />
+                <ReturnType Type="CatalogService.DefectClassifications" />
+            </Action>
+            <Action Name="draftEdit" EntitySetPath="in" IsBound="true">
+                <Parameter Name="in" Type="CatalogService.PaintDetails" />
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean" />
+                <ReturnType Type="CatalogService.PaintDetails" />
+            </Action>
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Products" EntityType="CatalogService.Products">
+                    <NavigationPropertyBinding Path="mainCustomer" Target="MainCustomers" />
+                    <NavigationPropertyBinding Path="vehicleType" Target="MstrVehicleTypes" />
+                    <NavigationPropertyBinding Path="defectDetails" Target="DefectDetails" />
+                </EntitySet>
+                <EntitySet Name="ChartDataEntities" EntityType="CatalogService.ChartDataEntities" />
+                <EntitySet Name="Books" EntityType="CatalogService.Books" />
+                <EntitySet Name="Users" EntityType="CatalogService.Users">
+                    <NavigationPropertyBinding Path="userType" Target="MstrUserTypes" />
+                </EntitySet>
+                <EntitySet Name="DefectDetails" EntityType="CatalogService.DefectDetails">
+                    <NavigationPropertyBinding Path="product" Target="Products" />
+                    <NavigationPropertyBinding Path="defectType" Target="MstrDefectTypes" />
+                    <NavigationPropertyBinding Path="defectClassification" Target="DefectClassifications" />
+                    <NavigationPropertyBinding Path="paintDetail" Target="PaintDetails" />
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="DefectDetails" />
+                </EntitySet>
+                <EntitySet Name="DefectClassifications" EntityType="CatalogService.DefectClassifications">
+                    <NavigationPropertyBinding Path="category" Target="MstrCategories" />
+                    <NavigationPropertyBinding Path="subCategory" Target="MstrSubCategories" />
+                    <NavigationPropertyBinding Path="JV" Target="MstrJVs" />
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="DefectClassifications" />
+                </EntitySet>
+                <EntitySet Name="PaintDetails" EntityType="CatalogService.PaintDetails">
+                    <NavigationPropertyBinding Path="layer" Target="MstrLayers" />
+                    <NavigationPropertyBinding Path="targetSubstrate" Target="MstrTargetSubstrates" />
+                    <NavigationPropertyBinding Path="substrateMaterial" Target="MstrSubstrateMaterials" />
+                    <NavigationPropertyBinding Path="paintType" Target="MstrPaintTypes" />
+                    <NavigationPropertyBinding Path="crossLinkType" Target="MstrCrosslinkTypes" />
+                    <NavigationPropertyBinding Path="exteriorInterior" Target="MstrExteriorInteriors" />
+                    <NavigationPropertyBinding Path="atomization" Target="MstrAtomizations" />
+                    <NavigationPropertyBinding Path="electrostatic" Target="MstrElectrostatics" />
+                    <NavigationPropertyBinding Path="composition" Target="MstrCompositions" />
+                    <NavigationPropertyBinding Path="dryingCondition" Target="MstrDryingConditions" />
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="PaintDetails" />
+                </EntitySet>
+                <EntitySet Name="DefectDetailHistories" EntityType="CatalogService.DefectDetailHistories">
+                    <NavigationPropertyBinding Path="product" Target="Products" />
+                    <NavigationPropertyBinding Path="defectType" Target="MstrDefectTypes" />
+                    <NavigationPropertyBinding Path="defectClassificationHistory" Target="DefectClassificationHistories" />
+                    <NavigationPropertyBinding Path="paintDetailHistory" Target="PaintDetailHistories" />
+                </EntitySet>
+                <EntitySet Name="DefectClassificationHistories" EntityType="CatalogService.DefectClassificationHistories">
+                    <NavigationPropertyBinding Path="category" Target="MstrCategories" />
+                    <NavigationPropertyBinding Path="subCategory" Target="MstrSubCategories" />
+                    <NavigationPropertyBinding Path="JV" Target="MstrJVs" />
+                </EntitySet>
+                <EntitySet Name="PaintDetailHistories" EntityType="CatalogService.PaintDetailHistories">
+                    <NavigationPropertyBinding Path="layer" Target="MstrLayers" />
+                    <NavigationPropertyBinding Path="targetSubstrate" Target="MstrTargetSubstrates" />
+                    <NavigationPropertyBinding Path="substrateMaterial" Target="MstrSubstrateMaterials" />
+                    <NavigationPropertyBinding Path="paintType" Target="MstrPaintTypes" />
+                    <NavigationPropertyBinding Path="crossLinkType" Target="MstrCrosslinkTypes" />
+                    <NavigationPropertyBinding Path="exteriorInterior" Target="MstrExteriorInteriors" />
+                    <NavigationPropertyBinding Path="atomization" Target="MstrAtomizations" />
+                    <NavigationPropertyBinding Path="electrostatic" Target="MstrElectrostatics" />
+                    <NavigationPropertyBinding Path="composition" Target="MstrCompositions" />
+                    <NavigationPropertyBinding Path="dryingCondition" Target="MstrDryingConditions" />
+                </EntitySet>
+                <EntitySet Name="MainCustomers" EntityType="CatalogService.MainCustomers" />
+                <EntitySet Name="MstrUserTypes" EntityType="CatalogService.MstrUserTypes" />
+                <EntitySet Name="MstrVehicleTypes" EntityType="CatalogService.MstrVehicleTypes" />
+                <EntitySet Name="MstrDefectTypes" EntityType="CatalogService.MstrDefectTypes" />
+                <EntitySet Name="MstrData" EntityType="CatalogService.MstrData" />
+                <EntitySet Name="MstrCategories" EntityType="CatalogService.MstrCategories" />
+                <EntitySet Name="MstrSubCategories" EntityType="CatalogService.MstrSubCategories" />
+                <EntitySet Name="MstrJVs" EntityType="CatalogService.MstrJVs" />
+                <EntitySet Name="MstrDocumentCategories" EntityType="CatalogService.MstrDocumentCategories" />
+                <EntitySet Name="MstrLayers" EntityType="CatalogService.MstrLayers" />
+                <EntitySet Name="MstrTargetSubstrates" EntityType="CatalogService.MstrTargetSubstrates" />
+                <EntitySet Name="MstrSubstrateMaterials" EntityType="CatalogService.MstrSubstrateMaterials" />
+                <EntitySet Name="MstrPaintTypes" EntityType="CatalogService.MstrPaintTypes" />
+                <EntitySet Name="MstrCrosslinkTypes" EntityType="CatalogService.MstrCrosslinkTypes" />
+                <EntitySet Name="MstrExteriorInteriors" EntityType="CatalogService.MstrExteriorInteriors" />
+                <EntitySet Name="MstrAtomizations" EntityType="CatalogService.MstrAtomizations" />
+                <EntitySet Name="MstrElectrostatics" EntityType="CatalogService.MstrElectrostatics" />
+                <EntitySet Name="MstrCompositions" EntityType="CatalogService.MstrCompositions" />
+                <EntitySet Name="MstrDryingConditions" EntityType="CatalogService.MstrDryingConditions" />
+            </EntityContainer>
+            <Annotations Target="CatalogService.Products">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName">
+                            <String>Product</String>
+                        </PropertyValue>
+                        <PropertyValue Property="TypeNamePlural">
+                            <String>Products</String>
+                        </PropertyValue>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value">
+                                    <Path>name</Path>
+                                </PropertyValue>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value">
+                                    <Path>code</Path>
+                                </PropertyValue>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>vehicleType/name</PropertyPath>
+                        <PropertyPath>mainCustomer/name</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Product Name</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>code</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Product Code</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>vehicleType/name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Vehicle Type</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>mainCustomer/name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Main Customer</String>
+                            </PropertyValue>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/code">
+                <Annotation Term="Common.Label">
+                    <String>Product Code</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/name">
+                <Annotation Term="Common.Label">
+                    <String>Product Name</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/mainCustomer">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/mainCustomer_ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/vehicleType">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/vehicleType_ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Products/defectDetails">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.ChartDataEntities/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.ChartDataEntities/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.ChartDataEntities/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.ChartDataEntities/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Books">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName">
+                            <String>User</String>
+                        </PropertyValue>
+                        <PropertyValue Property="TypeNamePlural">
+                            <String>User List</String>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>userType/name</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>userType/name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>User Type</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Name</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>email</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Email ID</String>
+                            </PropertyValue>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Users">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users/ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users/userType">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users/userType_ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users/name">
+                <Annotation Term="Common.Label">
+                    <String>Name</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Users/email">
+                <Annotation Term="Common.Label">
+                    <String>Email</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName">
+                            <String>Defect Detail</String>
+                        </PropertyValue>
+                        <PropertyValue Property="TypeNamePlural">
+                            <String>Defect Details</String>
+                        </PropertyValue>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value">
+                                    <Path>defectType/name</Path>
+                                </PropertyValue>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value">
+                                    <Path>defectClassification/category/name</Path>
+                                </PropertyValue>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>defectType/name</PropertyPath>
+                        <PropertyPath>defectClassification/category/name</PropertyPath>
+                        <PropertyPath>defectClassification/subCategory/name</PropertyPath>
+                        <PropertyPath>defectClassification/JV/name</PropertyPath>
+                        <PropertyPath>occurrenceStartDate</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>defectType/name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Defect Type</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>defectClassification/category/name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Category</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>defectClassification/subCategory/name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Sub Category</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>defectClassification/JV/name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Issued By (JV)</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>occurrenceStartDate</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Occurrence Date</String>
+                            </PropertyValue>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Label">
+                                <String>Defect Details</String>
+                            </PropertyValue>
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target">
+                                            <AnnotationPath>@UI.FieldGroup#Main</AnnotationPath>
+                                        </PropertyValue>
+                                        <PropertyValue Property="Label">
+                                            <String>Basic Details</String>
+                                        </PropertyValue>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target">
+                                            <AnnotationPath>@UI.FieldGroup#Main2</AnnotationPath>
+                                        </PropertyValue>
+                                        <PropertyValue Property="Label">
+                                            <String>Defect Details</String>
+                                        </PropertyValue>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target">
+                                            <AnnotationPath>@UI.FieldGroup#Main3</AnnotationPath>
+                                        </PropertyValue>
+                                        <PropertyValue Property="Label">
+                                            <String>Paint Details</String>
+                                        </PropertyValue>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Main">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>ID</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>ID</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>product/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Product Name</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>defectType/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Defect Type</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>createdBy</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Registerer</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>outline</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Problem Description</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>causeOfTrouble</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Cause of Problem</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>countermeasureTaken</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Countermeasures Taken</String>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Main2">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>defectClassification/category/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Category</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>defectClassification/subCategory/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Sub Category</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>defectClassification/JV/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Issued By (JV)</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>product/mainCustomer/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Customer</String>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Main3">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/layer/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Layer</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/targetSubstrate/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Target Substrate</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/substrateMaterial/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Substrate Material</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/paintType/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Paint Type</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/crossLinkType/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Crosslink Type</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/exteriorInterior/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Exterior/Interior</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/atomization/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Application 1 (Atomization)</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/electrostatic/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Application 2 (Electrostatic)</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/composition/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Application 1 (Composition)</String>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value">
+                                        <Path>paintDetail/dryingCondition/name</Path>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Label">
+                                        <String>Drying Condition</String>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/DefectDetails">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction">
+                            <String>CatalogService.draftActivate</String>
+                        </PropertyValue>
+                        <PropertyValue Property="EditAction">
+                            <String>CatalogService.draftEdit</String>
+                        </PropertyValue>
+                        <PropertyValue Property="PreparationAction">
+                            <String>CatalogService.draftPrepare</String>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/ID">
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/product">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/product_ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/defectType">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/defectType_ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/title">
+                <Annotation Term="Common.Label">
+                    <String>Title</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/outline">
+                <Annotation Term="Common.Label">
+                    <String>Outline</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/causeOfTrouble">
+                <Annotation Term="Common.Label">
+                    <String>Cause of trouble</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/countermeasureTaken">
+                <Annotation Term="Common.Label">
+                    <String>Countermeasures Taken</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/defectClassification">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/defectClassification_ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/paintDetail">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/paintDetail_ID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/occurrenceStartDate">
+                <Annotation Term="Common.Label">
+                    <String>Occurrence Start Date</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/occurrenceEndDate">
+                <Annotation Term="Common.Label">
+                    <String>Occurrence End Date</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/IsActiveEntity">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/HasActiveEntity">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/HasDraftEntity">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetails/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/DefectClassifications">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction">
+                            <String>CatalogService.draftActivate</String>
+                        </PropertyValue>
+                        <PropertyValue Property="EditAction">
+                            <String>CatalogService.draftEdit</String>
+                        </PropertyValue>
+                        <PropertyValue Property="PreparationAction">
+                            <String>CatalogService.draftPrepare</String>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/ID">
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/category">
+                <Annotation Term="Common.Label">
+                    <String>Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/category_ID">
+                <Annotation Term="Common.Label">
+                    <String>Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/subCategory">
+                <Annotation Term="Common.Label">
+                    <String>Sub Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/subCategory_ID">
+                <Annotation Term="Common.Label">
+                    <String>Sub Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/IsActiveEntity">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/HasActiveEntity">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/HasDraftEntity">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassifications/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/PaintDetails">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction">
+                            <String>CatalogService.draftActivate</String>
+                        </PropertyValue>
+                        <PropertyValue Property="EditAction">
+                            <String>CatalogService.draftEdit</String>
+                        </PropertyValue>
+                        <PropertyValue Property="PreparationAction">
+                            <String>CatalogService.draftPrepare</String>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetails/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetails/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetails/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetails/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetails/ID">
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetails/IsActiveEntity">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetails/HasActiveEntity">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetails/HasDraftEntity">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetails/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetailHistories/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetailHistories/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetailHistories/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetailHistories/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetailHistories/title">
+                <Annotation Term="Common.Label">
+                    <String>Title</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetailHistories/outline">
+                <Annotation Term="Common.Label">
+                    <String>Outline</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectDetailHistories/causeOfTrouble">
+                <Annotation Term="Common.Label">
+                    <String>Cause of trouble</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassificationHistories/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassificationHistories/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassificationHistories/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassificationHistories/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassificationHistories/category">
+                <Annotation Term="Common.Label">
+                    <String>Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassificationHistories/category_ID">
+                <Annotation Term="Common.Label">
+                    <String>Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassificationHistories/subCategory">
+                <Annotation Term="Common.Label">
+                    <String>Sub Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DefectClassificationHistories/subCategory_ID">
+                <Annotation Term="Common.Label">
+                    <String>Sub Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetailHistories/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetailHistories/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetailHistories/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.PaintDetailHistories/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MainCustomers/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MainCustomers/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MainCustomers/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MainCustomers/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MainCustomers/name">
+                <Annotation Term="Common.Label">
+                    <String>Main Customer</String>
+                </Annotation>
+                <Annotation Term="Common.Text">
+                    <Path>name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label">
+                            <String>MainCustomers</String>
+                        </PropertyValue>
+                        <PropertyValue Property="CollectionPath">
+                            <String>MainCustomers</String>
+                        </PropertyValue>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty">
+                                        <PropertyPath>name</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="ValueListProperty">
+                                        <String>name</String>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>MainCustomers</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrUserTypes">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrUserTypes/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrUserTypes/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrUserTypes/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrUserTypes/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrUserTypes/name">
+                <Annotation Term="Common.Label">
+                    <String>User Type</String>
+                </Annotation>
+                <Annotation Term="Common.Text">
+                    <Path>name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label">
+                            <String>MstrUserTypes</String>
+                        </PropertyValue>
+                        <PropertyValue Property="CollectionPath">
+                            <String>MstrUserTypes</String>
+                        </PropertyValue>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty">
+                                        <PropertyPath>name</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="ValueListProperty">
+                                        <String>name</String>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>MstrUserTypes</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrVehicleTypes">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrVehicleTypes/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrVehicleTypes/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrVehicleTypes/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrVehicleTypes/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrVehicleTypes/name">
+                <Annotation Term="Common.Label">
+                    <String>Vehicle Type</String>
+                </Annotation>
+                <Annotation Term="Common.Text">
+                    <Path>name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label">
+                            <String>MstrVehicleTypes</String>
+                        </PropertyValue>
+                        <PropertyValue Property="CollectionPath">
+                            <String>MstrVehicleTypes</String>
+                        </PropertyValue>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty">
+                                        <PropertyPath>name</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="ValueListProperty">
+                                        <String>name</String>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>VehicleTypes</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrDefectTypes">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDefectTypes/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDefectTypes/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDefectTypes/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDefectTypes/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDefectTypes/name">
+                <Annotation Term="Common.Label">
+                    <String>Defect Type</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrData">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrData/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrData/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrData/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrData/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrData/name">
+                <Annotation Term="Common.Label">
+                    <String>Data</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrCategories">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCategories/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCategories/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCategories/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCategories/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCategories/name">
+                <Annotation Term="Common.Label">
+                    <String>Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrSubCategories">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubCategories/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubCategories/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubCategories/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubCategories/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubCategories/name">
+                <Annotation Term="Common.Label">
+                    <String>Sub Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrJVs">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrJVs/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrJVs/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrJVs/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrJVs/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrJVs/name">
+                <Annotation Term="Common.Label">
+                    <String>Issued By (JV)</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrDocumentCategories">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDocumentCategories/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDocumentCategories/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDocumentCategories/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDocumentCategories/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDocumentCategories/name">
+                <Annotation Term="Common.Label">
+                    <String>Document Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrLayers">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrLayers/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrLayers/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrLayers/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrLayers/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrLayers/name">
+                <Annotation Term="Common.Label">
+                    <String>Layer</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrTargetSubstrates">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrTargetSubstrates/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrTargetSubstrates/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrTargetSubstrates/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrTargetSubstrates/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrTargetSubstrates/name">
+                <Annotation Term="Common.Label">
+                    <String>Target Substrate</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrSubstrateMaterials">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubstrateMaterials/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubstrateMaterials/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubstrateMaterials/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubstrateMaterials/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrSubstrateMaterials/name">
+                <Annotation Term="Common.Label">
+                    <String>Substrate Material</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrPaintTypes">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrPaintTypes/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrPaintTypes/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrPaintTypes/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrPaintTypes/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrPaintTypes/name">
+                <Annotation Term="Common.Label">
+                    <String>Paint Type</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrCrosslinkTypes">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCrosslinkTypes/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCrosslinkTypes/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCrosslinkTypes/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCrosslinkTypes/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCrosslinkTypes/name">
+                <Annotation Term="Common.Label">
+                    <String>Crosslink Type</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrExteriorInteriors">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrExteriorInteriors/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrExteriorInteriors/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrExteriorInteriors/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrExteriorInteriors/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrExteriorInteriors/name">
+                <Annotation Term="Common.Label">
+                    <String>Exterior/Interior</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrAtomizations">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrAtomizations/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrAtomizations/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrAtomizations/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrAtomizations/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrAtomizations/name">
+                <Annotation Term="Common.Label">
+                    <String>Atomization</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrElectrostatics">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrElectrostatics/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrElectrostatics/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrElectrostatics/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrElectrostatics/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrElectrostatics/name">
+                <Annotation Term="Common.Label">
+                    <String>Electrostatic</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrCompositions">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCompositions/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCompositions/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCompositions/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrCompositions/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/MstrDryingConditions">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable">
+                            <Bool>false</Bool>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDryingConditions/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDryingConditions/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDryingConditions/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MstrDryingConditions/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData">
+                <Annotation Term="Common.Label">
+                    <String>Draft Administrative Data</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/DraftUUID">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Draft (Technical ID)</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/CreationDateTime">
+                <Annotation Term="Common.Label">
+                    <String>Draft Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/CreatedByUser">
+                <Annotation Term="Common.Label">
+                    <String>Draft Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsCreatedByMe">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Draft Created By Me</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/LastChangeDateTime">
+                <Annotation Term="Common.Label">
+                    <String>Draft Last Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/LastChangedByUser">
+                <Annotation Term="Common.Label">
+                    <String>Draft Last Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/InProcessByUser">
+                <Annotation Term="Common.Label">
+                    <String>Draft In Process By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsProcessedByMe">
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Draft In Process By Me</String>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,183 @@
+{
+    "_version": "1.32.0",
+    "sap.app": {
+        "id": "com.knpl.tss.overview",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/ChartService/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation"
+                    ],
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        },
+        "offline": false,
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "ui5template.fiorielements.v4.lrop",
+            "version": "1.0.0"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-knpl-overview-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "OVERVIEW",
+                    "action": "Manage",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": "sap-icon://bar-chart"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "resources": {
+            "js": [],
+            "css": []
+        },
+        "dependencies": {
+            "minUI5Version": "1.98.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "models": {
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "ChartDefectsList",
+                    "target": "ChartDefectsList"
+                }
+            ],
+            "targets": {
+                "ChartDefectsList": {
+                    "type": "Component",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "ChartDefects",
+                            "navigation": {},
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "type": "AnalyticalTable",
+                                        "selectionMode": "Auto"
+                                    },
+                                    "columns": {
+                                        "DataField::defectId": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::categoryName": {
+                                            "width": "100%"
+                                        },
+                                        "DataField::productName": {
+                                            "width": "100%"
+                                        }
+                                    }
+                                }
+                            },
+                            "views": {
+                                "paths": [
+                                    {
+                                        "primary": [
+                                            {
+                                                "annotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant"
+                                            }
+                                        ],
+                                        "secondary": [
+                                            {
+                                                "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
+                                            }
+                                        ],
+                                        "defaultPath": "both"
+                                    }
+                                ]
+                            },
+                            "initialLoad": "Enabled"
+                        }
+                    },
+                    "id": "ChartDefectsList"
+                }
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.platform.abap": {
+        "_version": "1.1.0",
+        "uri": ""
+    },
+    "sap.platform.hcp": {
+        "_version": "1.1.0",
+        "uri": ""
+    },
+    "sap.fiori": {
+        "_version": "1.1.0",
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "knpl.tss"
+    }
+}
