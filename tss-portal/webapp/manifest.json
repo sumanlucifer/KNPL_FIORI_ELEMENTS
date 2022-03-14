@@ -174,7 +174,7 @@
                                     "actions": {
                                         "Download": {
                                             "id": "downloadButton",
-                                            "text": "Download ",
+                                            "text": "Download Template",
                                             "press": "com.knpl.tss.tssportal.ext.controller.ListReportCustomController.onDownloadPress"
                                         },
                                         "upload": {
