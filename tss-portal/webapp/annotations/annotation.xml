@@ -1,0 +1,64 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/odata/v4/DefectService/$metadata">
+        <edmx:Include Namespace="DefectService" />
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.knpl.tss">
+            <Annotations Target="DefectService.DefectDetailVersions">
+                <Annotation Term="UI.LineItem" Qualifier="i18nversion1">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="version" />
+                            <PropertyValue Property="Label" String="{@i18n>version}" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedAt" />
+                            <PropertyValue Property="Label" String="{@i18n>modifiedAt}" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedBy" />
+                            <PropertyValue Property="Label" String="{@i18n>modifiedBy}" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DefectService.DefectDetails">
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Label" String="{@i18n>details}" />
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#ProductDetails" />
+                                        <PropertyValue Property="Label" String="{@i18n>productDetails}" />
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main" />
+                                        <PropertyValue Property="Label" String="{@i18n>basicDetails}" />
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main2" />
+                                        <PropertyValue Property="Label" String="{@i18n>defectDetails}" />
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main3" />
+                                        <PropertyValue Property="Label" String="{@i18n>paintDetails}" />
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="i18nversion1" />
+                            <PropertyValue Property="Target" AnnotationPath="versions/@UI.LineItem#i18nversion1" />
+                            <PropertyValue Property="Label" String="{@i18n>version}" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

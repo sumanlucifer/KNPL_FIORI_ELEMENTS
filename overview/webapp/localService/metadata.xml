@@ -1,0 +1,1049 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Aggregation.V1.xml">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Analytics.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ChartService">
+            <EntityType Name="ChartParent">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="name" Type="Edm.String" />
+                <NavigationProperty Name="chartByCategory" Type="Collection(ChartService.ChartByCategory)" Partner="parent">
+                    <OnDelete Action="Cascade" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ChartByCategory">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="categoryName" Type="Edm.String" />
+                <Property Name="categoryCount" Type="Edm.Int32" />
+                <Property Name="parent_ID" Type="Edm.Int32" />
+                <NavigationProperty Name="parent" Type="ChartService.ChartParent" Partner="chartByCategory">
+                    <ReferentialConstraint Property="parent_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ChartDefects">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="product_ID" Type="Edm.Guid" />
+                <Property Name="mainCustomer_ID" Type="Edm.Guid" />
+                <Property Name="vehicleType_ID" Type="Edm.Guid" />
+                <Property Name="defectType_ID" Type="Edm.Guid" />
+                <Property Name="title" Type="Edm.String" MaxLength="120" />
+                <Property Name="outline" Type="Edm.String" MaxLength="500" />
+                <Property Name="causeOfTrouble" Type="Edm.String" MaxLength="500" />
+                <Property Name="countermeasureTaken" Type="Edm.String" MaxLength="500" />
+                <Property Name="occurrenceStartDate" Type="Edm.Date" />
+                <Property Name="occurrenceEndDate" Type="Edm.Date" />
+                <Property Name="category_ID" Type="Edm.Guid" />
+                <Property Name="subCategory_ID" Type="Edm.Guid" />
+                <Property Name="JV_ID" Type="Edm.Guid" />
+                <Property Name="layer_ID" Type="Edm.Guid" />
+                <Property Name="targetSubstrate_ID" Type="Edm.Guid" />
+                <Property Name="substrateMaterial_ID" Type="Edm.Guid" />
+                <Property Name="paintType_ID" Type="Edm.Guid" />
+                <Property Name="crossLinkType_ID" Type="Edm.Guid" />
+                <Property Name="exteriorInterior_ID" Type="Edm.Guid" />
+                <Property Name="atomization_ID" Type="Edm.Guid" />
+                <Property Name="electrostatic_ID" Type="Edm.Guid" />
+                <Property Name="composition_ID" Type="Edm.Guid" />
+                <Property Name="dryingCondition_ID" Type="Edm.Guid" />
+                <Property Name="isArchive" Type="Edm.Boolean" DefaultValue="false" />
+                <Property Name="defectId" Type="Edm.String" MaxLength="15" />
+                <Property Name="categoryName" Type="Edm.String" MaxLength="120" />
+                <Property Name="productName" Type="Edm.String" MaxLength="120" />
+                <NavigationProperty Name="product" Type="ChartService.Products" Partner="defectDetails">
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="category" Type="ChartService.MstrCategories">
+                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MstrCategories">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+            </EntityType>
+            <EntityType Name="Products">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="code" Type="Edm.String" MaxLength="120" />
+                <Property Name="name" Type="Edm.String" MaxLength="120" />
+                <NavigationProperty Name="defectDetails" Type="Collection(ChartService.ChartDefects)" Partner="product" />
+            </EntityType>
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="ChartParent" EntityType="ChartService.ChartParent">
+                    <NavigationPropertyBinding Path="chartByCategory" Target="ChartByCategory" />
+                </EntitySet>
+                <EntitySet Name="ChartByCategory" EntityType="ChartService.ChartByCategory">
+                    <NavigationPropertyBinding Path="parent" Target="ChartParent" />
+                </EntitySet>
+                <EntitySet Name="ChartDefects" EntityType="ChartService.ChartDefects">
+                    <NavigationPropertyBinding Path="product" Target="Products" />
+                    <NavigationPropertyBinding Path="category" Target="MstrCategories" />
+                </EntitySet>
+                <EntitySet Name="MstrCategories" EntityType="ChartService.MstrCategories" />
+                <EntitySet Name="Products" EntityType="ChartService.Products">
+                    <NavigationPropertyBinding Path="defectDetails" Target="ChartDefects" />
+                </EntitySet>
+            </EntityContainer>
+            <Annotations Target="ChartService.ChartParent">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>name</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Name</String>
+                            </PropertyValue>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Chart">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title">
+                            <String>Defect Chart by Category</String>
+                        </PropertyValue>
+                        <PropertyValue Property="ChartType">
+                            <EnumMember>UI.ChartType/Column</EnumMember>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>maxAmount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>name</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure">
+                                        <PropertyPath>maxAmount</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Role">
+                                        <EnumMember>UI.ChartMeasureRoleType/Axis1</EnumMember>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension">
+                                        <PropertyPath>name</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Role">
+                                        <EnumMember>UI.ChartDimensionRoleType/Category</EnumMember>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Analytics.AggregatedProperties">
+                    <Collection>
+                        <Record Type="Analytics.AggregatedPropertyType">
+                            <PropertyValue Property="Name">
+                                <String>maxAmount</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregationMethod">
+                                <String>max</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregatableProperty">
+                                <PropertyPath>ID</PropertyPath>
+                            </PropertyValue>
+                            <Annotation Term="Common.Label">
+                                <String>Defect Count</String>
+                            </Annotation>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>topcount</String>
+                                <String>bottomcount</String>
+                                <String>identity</String>
+                                <String>concat</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                                <String>expand</String>
+                                <String>top</String>
+                                <String>skip</String>
+                                <String>orderby</String>
+                                <String>search</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup">
+                            <EnumMember>Aggregation.RollupType/None</EnumMember>
+                        </PropertyValue>
+                        <PropertyValue Property="PropertyRestrictions">
+                            <Bool>true</Bool>
+                        </PropertyValue>
+                        <PropertyValue Property="GroupableProperties">
+                            <Collection>
+                                <PropertyPath>name</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="AggregatableProperties">
+                            <Collection>
+                                <Record Type="Aggregation.AggregatablePropertyType">
+                                    <PropertyValue Property="Property">
+                                        <PropertyPath>ID</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="RecommendedAggregationMethod">
+                                        <String>average</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="SupportedAggregationMethods">
+                                        <Collection>
+                                            <String>min</String>
+                                            <String>max</String>
+                                            <String>average</String>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.EntityContainer/ChartParent">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>topcount</String>
+                                <String>bottomcount</String>
+                                <String>identity</String>
+                                <String>concat</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                                <String>expand</String>
+                                <String>top</String>
+                                <String>skip</String>
+                                <String>orderby</String>
+                                <String>search</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup">
+                            <EnumMember>Aggregation.RollupType/None</EnumMember>
+                        </PropertyValue>
+                        <PropertyValue Property="PropertyRestrictions">
+                            <Bool>true</Bool>
+                        </PropertyValue>
+                        <PropertyValue Property="GroupableProperties">
+                            <Collection>
+                                <PropertyPath>name</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="AggregatableProperties">
+                            <Collection>
+                                <Record Type="Aggregation.AggregatablePropertyType">
+                                    <PropertyValue Property="Property">
+                                        <PropertyPath>ID</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="RecommendedAggregationMethod">
+                                        <String>average</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="SupportedAggregationMethods">
+                                        <Collection>
+                                            <String>min</String>
+                                            <String>max</String>
+                                            <String>average</String>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartByCategory">
+                <Annotation Term="UI.Chart">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title">
+                            <String>Defect Chart by Category</String>
+                        </PropertyValue>
+                        <PropertyValue Property="ChartType">
+                            <EnumMember>UI.ChartType/Column</EnumMember>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>maxAmount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>categoryName</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure">
+                                        <PropertyPath>maxAmount</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Role">
+                                        <EnumMember>UI.ChartMeasureRoleType/Axis1</EnumMember>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension">
+                                        <PropertyPath>categoryName</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Role">
+                                        <EnumMember>UI.ChartDimensionRoleType/Category</EnumMember>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Analytics.AggregatedProperties">
+                    <Collection>
+                        <Record Type="Analytics.AggregatedPropertyType">
+                            <PropertyValue Property="Name">
+                                <String>minAmount</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregationMethod">
+                                <String>min</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregatableProperty">
+                                <PropertyPath>categoryCount</PropertyPath>
+                            </PropertyValue>
+                            <Annotation Term="Common.Label">
+                                <String>Minimal Net Amount</String>
+                            </Annotation>
+                        </Record>
+                        <Record Type="Analytics.AggregatedPropertyType">
+                            <PropertyValue Property="Name">
+                                <String>maxAmount</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregationMethod">
+                                <String>max</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregatableProperty">
+                                <PropertyPath>categoryCount</PropertyPath>
+                            </PropertyValue>
+                            <Annotation Term="Common.Label">
+                                <String>Defect Count</String>
+                            </Annotation>
+                        </Record>
+                        <Record Type="Analytics.AggregatedPropertyType">
+                            <PropertyValue Property="Name">
+                                <String>avgAmount</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregationMethod">
+                                <String>average</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregatableProperty">
+                                <PropertyPath>categoryCount</PropertyPath>
+                            </PropertyValue>
+                            <Annotation Term="Common.Label">
+                                <String>Average Net Amount</String>
+                            </Annotation>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>topcount</String>
+                                <String>bottomcount</String>
+                                <String>identity</String>
+                                <String>concat</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                                <String>expand</String>
+                                <String>top</String>
+                                <String>skip</String>
+                                <String>orderby</String>
+                                <String>search</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup">
+                            <EnumMember>Aggregation.RollupType/None</EnumMember>
+                        </PropertyValue>
+                        <PropertyValue Property="PropertyRestrictions">
+                            <Bool>true</Bool>
+                        </PropertyValue>
+                        <PropertyValue Property="GroupableProperties">
+                            <Collection>
+                                <PropertyPath>categoryName</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="AggregatableProperties">
+                            <Collection>
+                                <Record Type="Aggregation.AggregatablePropertyType">
+                                    <PropertyValue Property="Property">
+                                        <PropertyPath>categoryCount</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="RecommendedAggregationMethod">
+                                        <String>average</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="SupportedAggregationMethods">
+                                        <Collection>
+                                            <String>min</String>
+                                            <String>max</String>
+                                            <String>average</String>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.EntityContainer/ChartByCategory">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>topcount</String>
+                                <String>bottomcount</String>
+                                <String>identity</String>
+                                <String>concat</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                                <String>expand</String>
+                                <String>top</String>
+                                <String>skip</String>
+                                <String>orderby</String>
+                                <String>search</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup">
+                            <EnumMember>Aggregation.RollupType/None</EnumMember>
+                        </PropertyValue>
+                        <PropertyValue Property="PropertyRestrictions">
+                            <Bool>true</Bool>
+                        </PropertyValue>
+                        <PropertyValue Property="GroupableProperties">
+                            <Collection>
+                                <PropertyPath>categoryName</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="AggregatableProperties">
+                            <Collection>
+                                <Record Type="Aggregation.AggregatablePropertyType">
+                                    <PropertyValue Property="Property">
+                                        <PropertyPath>categoryCount</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="RecommendedAggregationMethod">
+                                        <String>average</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="SupportedAggregationMethods">
+                                        <Collection>
+                                            <String>min</String>
+                                            <String>max</String>
+                                            <String>average</String>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>defectId</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Defect Id</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>categoryName</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Category</String>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                                <Path>productName</Path>
+                            </PropertyValue>
+                            <PropertyValue Property="Label">
+                                <String>Product</String>
+                            </PropertyValue>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Chart">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="Title">
+                            <String>Defect Chart</String>
+                        </PropertyValue>
+                        <PropertyValue Property="ChartType">
+                            <EnumMember>UI.ChartType/Column</EnumMember>
+                        </PropertyValue>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>defectCount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>categoryName</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure">
+                                        <PropertyPath>defectCount</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Role">
+                                        <EnumMember>UI.ChartMeasureRoleType/Axis1</EnumMember>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension">
+                                        <PropertyPath>categoryName</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Role">
+                                        <EnumMember>UI.ChartDimensionRoleType/Category</EnumMember>
+                                    </PropertyValue>
+                                    <PropertyValue Property="EmphasisLabels">
+                                        <Record Type="UI.EmphasisLabelType">
+                                            <PropertyValue Property="EmphasizedValuesLabel">
+                                                <String>category.name</String>
+                                            </PropertyValue>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension">
+                                        <PropertyPath>productName</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="Role">
+                                        <EnumMember>UI.ChartDimensionRoleType/Category</EnumMember>
+                                    </PropertyValue>
+                                    <PropertyValue Property="EmphasisLabels">
+                                        <Record Type="UI.EmphasisLabelType">
+                                            <PropertyValue Property="EmphasizedValuesLabel">
+                                                <String>product.name</String>
+                                            </PropertyValue>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Analytics.AggregatedProperties">
+                    <Collection>
+                        <Record Type="Analytics.AggregatedPropertyType">
+                            <PropertyValue Property="Name">
+                                <String>defectCount</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregationMethod">
+                                <String>countdistinct</String>
+                            </PropertyValue>
+                            <PropertyValue Property="AggregatableProperty">
+                                <PropertyPath>defectId</PropertyPath>
+                            </PropertyValue>
+                            <Annotation Term="Common.Label">
+                                <String>Defect Count</String>
+                            </Annotation>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>topcount</String>
+                                <String>bottomcount</String>
+                                <String>identity</String>
+                                <String>concat</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                                <String>expand</String>
+                                <String>top</String>
+                                <String>skip</String>
+                                <String>orderby</String>
+                                <String>search</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup">
+                            <EnumMember>Aggregation.RollupType/None</EnumMember>
+                        </PropertyValue>
+                        <PropertyValue Property="PropertyRestrictions">
+                            <Bool>true</Bool>
+                        </PropertyValue>
+                        <PropertyValue Property="GroupableProperties">
+                            <Collection>
+                                <PropertyPath>defectId</PropertyPath>
+                                <PropertyPath>categoryName</PropertyPath>
+                                <PropertyPath>productName</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="AggregatableProperties">
+                            <Collection>
+                                <Record Type="Aggregation.AggregatablePropertyType">
+                                    <PropertyValue Property="Property">
+                                        <PropertyPath>defectId</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="RecommendedAggregationMethod">
+                                        <String>countdistinct</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="SupportedAggregationMethods">
+                                        <Collection>
+                                            <String>min</String>
+                                            <String>max</String>
+                                            <String>average</String>
+                                            <String>countdistinct</String>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.EntityContainer/ChartDefects">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>topcount</String>
+                                <String>bottomcount</String>
+                                <String>identity</String>
+                                <String>concat</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                                <String>expand</String>
+                                <String>top</String>
+                                <String>skip</String>
+                                <String>orderby</String>
+                                <String>search</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup">
+                            <EnumMember>Aggregation.RollupType/None</EnumMember>
+                        </PropertyValue>
+                        <PropertyValue Property="PropertyRestrictions">
+                            <Bool>true</Bool>
+                        </PropertyValue>
+                        <PropertyValue Property="GroupableProperties">
+                            <Collection>
+                                <PropertyPath>defectId</PropertyPath>
+                                <PropertyPath>categoryName</PropertyPath>
+                                <PropertyPath>productName</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="AggregatableProperties">
+                            <Collection>
+                                <Record Type="Aggregation.AggregatablePropertyType">
+                                    <PropertyValue Property="Property">
+                                        <PropertyPath>defectId</PropertyPath>
+                                    </PropertyValue>
+                                    <PropertyValue Property="RecommendedAggregationMethod">
+                                        <String>countdistinct</String>
+                                    </PropertyValue>
+                                    <PropertyValue Property="SupportedAggregationMethods">
+                                        <Collection>
+                                            <String>min</String>
+                                            <String>max</String>
+                                            <String>average</String>
+                                            <String>countdistinct</String>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/ID">
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/product">
+                <Annotation Term="Common.Label">
+                    <String>Product</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/product_ID">
+                <Annotation Term="Common.Label">
+                    <String>Product</String>
+                </Annotation>
+                <Annotation Term="Common.Text">
+                    <Path>product/name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/title">
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.FieldControl">
+                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Title</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/outline">
+                <Annotation Term="UI.MultiLineText">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.FieldControl">
+                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Outline</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/causeOfTrouble">
+                <Annotation Term="UI.MultiLineText">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.FieldControl">
+                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Cause of trouble</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/countermeasureTaken">
+                <Annotation Term="UI.MultiLineText">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.FieldControl">
+                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Countermeasures Taken</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/occurrenceStartDate">
+                <Annotation Term="Common.Label">
+                    <String>Occurrence Start Date</String>
+                </Annotation>
+                <Annotation Term="Common.FieldControl">
+                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/occurrenceEndDate">
+                <Annotation Term="Common.Label">
+                    <String>Occurrence End Date</String>
+                </Annotation>
+                <Annotation Term="Common.FieldControl">
+                    <EnumMember>Common.FieldControlType/Mandatory</EnumMember>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/category">
+                <Annotation Term="Common.Label">
+                    <String>Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/category_ID">
+                <Annotation Term="Common.Label">
+                    <String>Category</String>
+                </Annotation>
+                <Annotation Term="Common.Text">
+                    <Path>category/name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/subCategory_ID">
+                <Annotation Term="Common.Label">
+                    <String>Sub Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/defectId">
+                <Annotation Term="Common.Label">
+                    <String>Defect ID</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/categoryName">
+                <Annotation Term="Common.Label">
+                    <String>Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.ChartDefects/productName">
+                <Annotation Term="Common.Label">
+                    <String>Product Name</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.MstrCategories/ID">
+                <Annotation Term="Common.Text">
+                    <Path>name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.MstrCategories/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.MstrCategories/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.MstrCategories/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.MstrCategories/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.MstrCategories/name">
+                <Annotation Term="Common.Label">
+                    <String>Category</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.Products/createdAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.Products/createdBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Immutable">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Created By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.Products/modifiedAt">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed On</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.Products/modifiedBy">
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Computed">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="Core.Description">
+                    <String>User's unique ID</String>
+                </Annotation>
+                <Annotation Term="Common.Label">
+                    <String>Changed By</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.Products/ID">
+                <Annotation Term="Common.Text">
+                    <Path>name</Path>
+                    <Annotation Term="UI.TextArrangement">
+                        <EnumMember>UI.TextArrangementType/TextOnly</EnumMember>
+                    </Annotation>
+                </Annotation>
+                <Annotation Term="UI.Hidden">
+                    <Bool>true</Bool>
+                </Annotation>
+                <Annotation Term="UI.HiddenFilter">
+                    <Bool>true</Bool>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.Products/code">
+                <Annotation Term="Common.Label">
+                    <String>Product Code</String>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ChartService.Products/name">
+                <Annotation Term="Common.Label">
+                    <String>Product Name</String>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
